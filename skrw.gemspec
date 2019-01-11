@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.version     = '0.0.1'
   spec.authors     = ["Paul Bernhard"]
   spec.email       = ["mail@pbernhard.com"]
-  spec.homepage    = "N/A"
+  # spec.homepage    = "N/A"
   spec.summary     = "Skrw - Simple admin engine with authentication, upload and form functionalities"
   spec.description = "Skrw - Simple admin engine with authentication, upload and form functionalities"
   spec.license     = "MIT"
@@ -25,7 +25,8 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  spec.add_dependency "rails", "~> 5.2.2"
+  spec.add_dependency 'rails', '~> 5.2.2'
+  spec.add_dependency 'devise', '~> 4.5' # authentication of user
 
-  spec.add_development_dependency "pg"
+  spec.add_development_dependency 'pg'
 end

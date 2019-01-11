@@ -1,9 +1,6 @@
 # Skrw
 Short description and motivation.
 
-## Usage
-How to use my plugin.
-
 ## Installation
 Add this line to your application's Gemfile:
 
@@ -19,6 +16,18 @@ $ bundle
 Or install it yourself as:
 ```bash
 $ gem install skrw
+```
+
+## Usage / Configuration
+
+### Authentication
+- you'll need to set up the default URL options for the Devise mailer in each environment, e.g. in `config/environments/development.rb`:
+```ruby
+config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+```
+- set sender of mailer in `skrw.rb` initializer:
+```ruby
+config.mailer_sender = "somebody@hollywood.com"
 ```
 
 ## Contributing
