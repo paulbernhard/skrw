@@ -1,0 +1,44 @@
+<div class="skrw-session">
+
+  <%= render 'skrw/sessions/flashes' %>
+
+  <div class="skrw-session__user">
+  
+    <% if user_signed_in? %>
+    
+      <%= current_user.email %>
+      <%= link_to "Logout", destroy_user_session_path, method: :delete %>  
+    
+    <% else %>
+
+      <%= form_with(model: resource, url: user_session_path, 
+                    local: true, class: "skrw-form") do |f| %>
+        
+        <div class="skrw-form-row">
+          <div class="skrw-form-field">
+            <%= f.label :email, "Email" %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+          </div>
+
+          <div class="skrw-form-field">
+            <%= f.label :password, "Password" %>
+            <%= f.password_field :password, autocomplete: "current-password" %>
+          </div>
+        </div>
+
+        <% if devise_mapping.rememberable? -%>
+          <div class="skrw-form-field">
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+          </div>
+        <% end -%>
+
+        <div class="skrw-form-controls">
+          <%= f.submit "Login" %>
+        </div>
+      <% end %>
+
+    <% end %>
+
+  </div>
+</div>
