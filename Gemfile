@@ -11,5 +11,9 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-# To use a debugger
 gem 'byebug', group: [:development, :test]
+
+group :test do
+  gem 'minitest-reporters', '~> 1.3', '>= 1.3.5'
+  # gem 'minitest-focus', '~> 1.1', '>= 1.1.2'
+end

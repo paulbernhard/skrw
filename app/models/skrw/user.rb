@@ -4,7 +4,7 @@ module Skrw
     # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
     devise :database_authenticatable,
            :rememberable, :validatable
-    # TODO add functionality for registerable user with :registerable
+           
     # TODO add functionality for recoverable user with :recoverable
   end
 end
