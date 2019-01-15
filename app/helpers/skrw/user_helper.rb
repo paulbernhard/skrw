@@ -16,5 +16,9 @@ module Skrw
         return false
       end
     end
+
+    def user_bar
+      render 'skrw/sessions/session' if session?
+    end
   end
 end
