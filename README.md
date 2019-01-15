@@ -24,6 +24,10 @@ $ gem install skrw
 - user `<%= user_bar %>` in `applicattion.html.erb` to include the administration bar for users
 - Devise helpers like `user_signed_in?` will be accessible / additionally there is `admin_signed_in?`
 - create a user in console `Skrw::User.create!(email: 'mail@mail.com', passworD: 'password', password_confirmation: 'password')` (temporary until registration is finished)
+- testing: 
+  - use `include Devise::Test::IntegrationHelpers` to sign_in / sign_out users in tests
+  - use Skrw path helpers to test its routes such as `skrw.new_user_session_url`
+  - place user fixtures in `skrw/users.yml` and assign with `@user = skrw_users(:user)` in tests
 
 ## Usage / Configuration
 

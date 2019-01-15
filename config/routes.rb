@@ -13,7 +13,5 @@ Skrw::Engine.routes.draw do
 
   resources :users, only: [:index, :edit, :update, :destroy]
 
-  # TODO add routes/controller for registrations
-
   root to: 'users#index'
 end
