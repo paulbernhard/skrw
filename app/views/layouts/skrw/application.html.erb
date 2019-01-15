@@ -13,5 +13,10 @@
   <%= user_bar %>
   <%= yield %>
 
+  <%= form_with url: skrw.root_path, local: true, builder: Skrw::FormBuilder do |f| %>
+    <%= f.label(:email, "hello", value: 'public', class: 'wtf-again') %>
+    <%= f.label(:email, "hello", value: 'public', class: 'wtf-again') %>
+  <% end %>
+
 </body>
 </html>

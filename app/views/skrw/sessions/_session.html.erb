@@ -12,31 +12,24 @@
     <% else %>
 
       <%= form_with(model: resource, url: user_session_path, 
-                    local: true, class: "skrw-form") do |f| %>
-        
-        <div class="skrw-form-row">
-          <div class="skrw-form-field">
-            <%= f.label :email, "Email" %>
-            <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-          </div>
+                    local: true, class: "skrw-form", builder: Skrw::FormBuilder) do |f| %>
 
-          <div class="skrw-form-field">
-            <%= f.label :password, "Password" %>
-            <%= f.password_field :password, autocomplete: "current-password" %>
-          </div>
-        </div>
+          <%= f.errors %>
 
-        <% if devise_mapping.rememberable? -%>
-          <div class="skrw-form-field">
-            <%= f.check_box :remember_me %>
-            <%= f.label :remember_me %>
-          </div>
-        <% end -%>
+          <%= f.row do %>
+            <%= f.label_group(:email, "Email", :email_field, field_options: { autofocus: true, autocomplete: "email" }) %>
+            <%= f.label_group(:password, "Password", :password_field, field_options: { autocomplete: "current-password" }) %>
 
-        <div class="skrw-form-controls">
-          <%= f.submit "Login" %>
-        </div>
-      <% end %>
+            <%= f.group(:remember_me) do %>
+              <%= f.check_box :remember_me %>
+              <%= f.label :remember_me %>
+            <% end %>
+          <% end %>
+
+          <%= f.controls do %>
+            <%= f.submit "Login" %>
+          <% end %>
+        <% end %>
 
     <% end %>
 

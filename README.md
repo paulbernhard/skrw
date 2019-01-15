@@ -28,6 +28,7 @@ $ gem install skrw
   - use `include Devise::Test::IntegrationHelpers` to sign_in / sign_out users in tests
   - use Skrw path helpers to test its routes such as `skrw.new_user_session_url`
   - place user fixtures in `skrw/users.yml` and assign with `@user = skrw_users(:user)` in tests
+  - consider setting `config.cache_classes = false` in HostApp `test.rb` during Engine development
 
 ## Usage / Configuration
 
