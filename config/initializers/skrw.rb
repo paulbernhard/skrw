@@ -9,6 +9,6 @@ Skrw.setup do |config|
   # path after sign out
   # config.after_sign_out_path = '/'
 
-  # CSS base class for forms
+  # CSS base class for forms (disabled)
   # config.form_css_base_class = 'skrwf'
 end

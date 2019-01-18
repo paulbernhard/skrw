@@ -20,9 +20,9 @@ module Skrw
     mattr_accessor :after_sign_out_path
     self.after_sign_out_path = '/'
 
-    # CSS base class for forms
-    mattr_accessor :form_css_base_class
-    self.form_css_base_class = 'skrwf'
+    # CSS base class for forms (disabled)
+    # mattr_accessor :form_css_base_class
+    # self.form_css_base_class = 'skrwf'
   end
 
   # setup method for configuration

@@ -12,8 +12,4 @@ gemspec
 # your gem to rubygems.org.
 
 gem 'byebug', group: [:development, :test]
-
-group :test do
-  gem 'minitest-reporters', '~> 1.3', '>= 1.3.5'
-  # gem 'minitest-focus', '~> 1.1', '>= 1.1.2'
-end
+gem 'minitest-reporters', '~> 1.3', '>= 1.3.5', group: :test

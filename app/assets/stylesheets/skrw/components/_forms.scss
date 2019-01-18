@@ -1,0 +1,51 @@
+@import 'form_fields';
+
+.skrwf {
+
+  &__row {
+
+    &--inline {
+      
+      .skrwf__group,
+      .skrwf__controls {
+        display: inline-block;
+        margin-right: 2 * $unit;
+      }
+      
+      .skrwf__group {
+        @extend .skrwf__group--inline;
+      }
+      
+      .skrwf__controls {
+        @extend .skrwf__controls--inline;
+      }
+    }
+  }
+
+  &__group {
+
+    &--inline {
+
+      * {
+        display: inline-block !important;
+        width: auto !important;
+        margin-right: 2 * $unit;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  &__controls {
+
+    &--inline {
+      display: inline-block !important;
+    }
+  }
+
+  &__errors {
+    // form errors …
+  }
+}

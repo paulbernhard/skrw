@@ -1,0 +1,32 @@
+.skrw-session {
+  position: fixed;
+  z-index: 99;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: $unit (2 * $unit);
+  background: yellow;
+
+  &__user {
+    width: 100%;
+  }
+}
+
+.skrw-flashes {
+  margin-bottom: .25 * $line-height;
+}
+
+.skrw-flash {
+
+  &--alert, &--error {
+    color: red;
+
+    &:before {
+      content: "!! ";
+    }
+  }
+
+  &--notice {
+    color: gray;
+  }
+}

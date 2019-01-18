@@ -1,39 +1,5 @@
-<div class="skrw-session">
-
+<div class="skrw skrw-session">
   <%= render 'skrw/sessions/flashes' %>
-
-  <div class="skrw-session__user">
-  
-    <% if user_signed_in? %>
-    
-      <%= current_user.email %>
-      <%= link_to "Logout", skrw.destroy_user_session_path, method: :delete %>  
-    
-    <% else %>
-
-      <%= form_with(model: resource, url: user_session_path, 
-                    local: true, class: "skrw-form", builder: Skrw::FormBuilder) do |f| %>
-
-          <% f.object.errors.add(:password, "something wrong in general") %>
-
-          <%= f.errors %>
-
-          <%= f.row do %>
-            <%= f.label_group(:email, "Email", :email_field, field_options: { autofocus: true, autocomplete: "email" }) %>
-            <%= f.label_group(:password, "Password", :password_field, field_options: { autocomplete: "current-password" }) %>
-
-            <%= f.group(:remember_me) do %>
-              <%= f.check_box :remember_me %>
-              <%= f.label :remember_me %>
-            <% end %>
-          <% end %>
-
-          <%= f.controls do %>
-            <%= f.submit "Login" %>
-          <% end %>
-        <% end %>
-
-    <% end %>
-
-  </div>
+  <%= render 'skrw/sessions/user' %>
+  <%= render 'skrw/sessions/controls' %>
 </div>

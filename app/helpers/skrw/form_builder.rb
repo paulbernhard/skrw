@@ -66,7 +66,8 @@ module Skrw
       end
 
       def base_class
-        Skrw.form_css_base_class + "__"
+        # Skrw.form_css_base_class + "__"
+        "skrwf" + "__"
       end
   end
 end
