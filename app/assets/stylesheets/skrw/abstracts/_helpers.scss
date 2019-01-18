@@ -1,0 +1,39 @@
+// mixin for media querries (handheld, small-screen)
+// Syntax   @include respond-to(handheld) {
+//            width: 100%;
+//          }
+
+@mixin respond-to($media) {
+
+  @if $media == handheld {
+    @media only screen and (max-width: $break-small) { @content; }
+  }
+
+  @else if $media == small-screen {
+    @media only screen and (min-width: $break-small + 1) { @content; }
+  }
+}
+
+// mixin to prefix (multiple) properties
+// Syntax   @include prefix((
+//            column-count: 3, 
+//            column-gap: 1em
+//          ), moz webkit);
+
+@mixin prefix($declarations, $prefixes: (moz webkit)) {
+  @each $property, $value in $declarations {
+    @each $prefix in $prefixes {
+      #{'-' + $prefix + '-' + $property}: $value;
+    }
+
+    #{$property}: $value;
+  }
+}
+
+%clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
