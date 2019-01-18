@@ -14,6 +14,8 @@
       <%= form_with(model: resource, url: user_session_path, 
                     local: true, class: "skrw-form", builder: Skrw::FormBuilder) do |f| %>
 
+          <% f.object.errors.add(:password, "something wrong in general") %>
+
           <%= f.errors %>
 
           <%= f.row do %>

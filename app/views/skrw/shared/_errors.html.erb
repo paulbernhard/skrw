@@ -1,0 +1,5 @@
+<div class="<%= Skrw.form_css_base_class %>__errors">
+  <% object.errors.full_messages.each do |message| %>
+    <%= render 'shared/error', message: message %>
+  <% end %>
+</div>

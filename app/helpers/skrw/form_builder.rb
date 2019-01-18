@@ -2,63 +2,59 @@ module Skrw
   class FormBuilder < ActionView::Helpers::FormBuilder
     include ActionView::Helpers::TagHelper
 
-    # Errors
+    # form error messages for all object errors
+    # or specific key errors such as :title
+    def errors(errors_for = nil)
+      messages = errors_for.nil? ? @object.errors.full_messages : @object.errors.full_messages_for(errors_for)
 
-    def errors(**options)
-      if object.errors.any?
-        @template.content_tag(:ul, insert_class("#{base_class}errors", options)) do
-          messages = ""
-          object.errors.full_messages.each { |msg| messages += error(msg) }
-          messages.html_safe
+      if messages.any?
+        @template.content_tag(:ul, class: "#{base_class}errors") do
+          output = "".html_safe
+          messages.each do |message|
+            output << content_tag(:li, message, class: "#{base_class}error")
+          end
+          output
         end
+      else
+        return ""
       end
     end
 
-    def error(message)
-      content_tag(:li, message, class: "#{base_class}error")
-    end
-
-    # Rows and Groups
-
+    # form row wrapper
     def row(**options, &block)
       @template.content_tag(:div, insert_class("#{base_class}row", options)) { yield if block_given? }
     end
 
+    # form group wrapper
     def group(method, **options, &block)
       class_names = "#{base_class}group"
-      class_names += " #{base_class}group--with-errors" if object.errors.has_key?(method)
+      class_names += " #{base_class}group--with-errors" if @object.errors.has_key?(method)
 
       @template.content_tag(:div, insert_class("#{class_names}", options)) do
+        output = "".html_safe
+        output << yield if block_given?
+        output
+      end
+    end
+
+    # output a labeled form group for a method with a field_type
+    # field-specific error messages can be added with 'with_erros: true'
+    # label_group(:title, :text_field, with_errors: true)
+    def label_group(method, text = nil, field_type, field_options: {}, with_errors: false, **options)
+      group(method, options) do
+        output = "".html_safe
+        output << errors(method) if with_errors
+        output << label(method, text) # label method
+        output << send(field_type, method, field_options) # field method according to field_type
+        output
+      end
+    end
+
+    # form controls wrapper
+    def controls(**options, &block)
+      @template.content_tag(:div, insert_class("#{base_class}controls", options)) do
         yield if block_given?
       end
-    end
-
-    def label_group(method, text = nil, field_type, field_options: {}, **options)
-      group(method, options) do
-        label(method, text) + send(field_type, method, field_options)
-      end
-    end
-
-    # Labels and Fields
-
-    # def label(method, text = nil, **options, &block)
-    #   super(method, text, insert_class("#{base_class}label", options))
-    # end
-
-    # def text_field(method, **options)
-    #   super(method, options)
-    # end
-
-    # def email_field(method, **options)
-    #   super(method, options)
-    # end
-
-    # def password_field(method, **options)
-    #   super(method, options)
-    # end
-
-    def controls(**options, &block)
-      @template.content_tag(:div, insert_class("#{base_class}controls", options)) { yield if block_given? }
     end
 
     private
@@ -70,7 +66,7 @@ module Skrw
       end
 
       def base_class
-        "skrw-form__"
+        Skrw.form_css_base_class + "__"
       end
   end
 end
