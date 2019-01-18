@@ -21,7 +21,7 @@ Devise.setup do |config|
   config.mailer_sender = Skrw.mailer_sender
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = 'Devise::Mailer'
+  config.mailer = 'Skrw::UserMailer'
 
   # Configure the parent class responsible to send e-mails.
   # config.parent_mailer = 'ActionMailer::Base'

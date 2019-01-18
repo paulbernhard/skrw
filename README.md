@@ -29,6 +29,8 @@ $ gem install skrw
   - use Skrw path helpers to test its routes such as `skrw.new_user_session_url`
   - place user fixtures in `skrw/users.yml` and assign with `@user = skrw_users(:user)` in tests
   - consider setting `config.cache_classes = false` in HostApp `test.rb` during Engine development
+- mailer:
+  - set production log level to WARN in order to avoid leaking recovery passwords to production.log in `config/environments/production.rb` with `config.log_level = :warn`
 
 ## Usage / Configuration
 

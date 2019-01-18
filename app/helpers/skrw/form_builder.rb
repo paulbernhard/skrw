@@ -5,7 +5,6 @@ module Skrw
     # Errors
 
     def errors(**options)
-      object.errors.add(:title, "something wroong")
       if object.errors.any?
         @template.content_tag(:ul, insert_class("#{base_class}errors", options)) do
           messages = ""
