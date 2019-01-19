@@ -23,6 +23,14 @@ module Skrw
     # CSS base class for forms (disabled)
     # mattr_accessor :form_css_base_class
     # self.form_css_base_class = 'skrwf'
+
+    # allowed upload mime-types
+    mattr_accessor :allowed_upload_mime_types
+    self.allowed_upload_mime_types = %W(image/jpg image/png image/gif video/quicktime video/mp4)
+
+    # maximum upload file size
+    mattr_accessor :max_upload_file_size
+    self.max_upload_file_size = 200.megabytes
   end
 
   # setup method for configuration

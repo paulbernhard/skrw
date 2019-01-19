@@ -32,6 +32,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'shrine', '~> 2.14' # file uploading
   spec.add_dependency 'shrine-memory', '~> 0.3.0' # in-memory storage for faster upload tests
+  spec.add_dependency 'image_processing', '~> 1.7', '>= 1.7.1' # image processing for uploads
 
   spec.add_development_dependency 'pg'
 end

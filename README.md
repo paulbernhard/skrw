@@ -53,6 +53,14 @@ $ gem install skrw
   - consider setting `config.cache_classes = false` in HostApp `test.rb` during Engine development
 - mailer:
   - set production log level to WARN in order to avoid leaking recovery passwords to production.log in `config/environments/production.rb` with `config.log_level = :warn`
+- uploadable:
+  - `Skrw::Concerns::Uploadable` can be hooked to a model and requires at least the fields `file_data` (json), `file_mime_type` (string), `promoted` (boolean, default: false). Use like:
+  ```ruby
+  class Upload < ApplicationRecord
+    include Skrw::Concerns::Uploadable
+  end
+  ```
+  - file processors require `libvips` installed on system
 
 ## Usage / Configuration
 
