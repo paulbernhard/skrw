@@ -1,9 +1,9 @@
-user:
-  email: user@development.com
-  encrypted_password: <%= Devise::Encryptor.digest(Skrw::User, 'password') %>
-  admin: false
+# user:
+#   email: user@development.com
+#   encrypted_password: <%= Devise::Encryptor.digest(Skrw::User, 'password') %>
+#   admin: false
 
-admin:
-  email: admin@development.com
-  encrypted_password: <%= Devise::Encryptor.digest(Skrw::User, 'password') %>
-  admin: true
+# admin:
+#   email: admin@development.com
+#   encrypted_password: <%= Devise::Encryptor.digest(Skrw::User, 'password') %>
+#   admin: true

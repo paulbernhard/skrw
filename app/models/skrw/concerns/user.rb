@@ -1,4 +1,4 @@
-module Skrw::Concerns::Userable
+module Skrw::Concerns::User
   extend ActiveSupport::Concern
 
   included do

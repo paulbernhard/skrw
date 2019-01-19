@@ -1,5 +1,5 @@
 module Skrw
   class User < ApplicationRecord
-    include Skrw::Concerns::Userable
+    include Skrw::Concerns::User
   end
 end
