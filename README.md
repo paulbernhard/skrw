@@ -21,7 +21,18 @@ $ gem install skrw
 - mount engine `mount Skrw::Engine, at: '/admin'`
 - install migrations `rails skrw:install:migrations` and `rails db:migrate`
 - include Skrw helpers `helper Skrw::Engine.helpers` in `ApplicationController`
-- user `<%= user_bar %>` in `applicattion.html.erb` to include the administration bar for users
+- user:
+  - user `<%= user_bar %>` in `applicattion.html.erb` to include the administration bar for users
+  - to associate other models to `Skrw::User` create `models/skrw/user.rb` like:
+  ```ruby
+  module Skrw
+    class User < ApplicationRecord
+      include Skrw::Concerns::User
+      has_many :posts
+      # other additional functions…
+    end
+  end
+  ```
 - Devise helpers like `user_signed_in?` will be accessible / additionally there is `admin_signed_in?`
 - create a user in console `Skrw::User.create!(email: 'mail@mail.com', passworD: 'password', password_confirmation: 'password')` (temporary until registration is finished)
 - testing: 
