@@ -23,13 +23,24 @@ $ gem install skrw
 - include Skrw helpers `helper Skrw::Engine.helpers` in `ApplicationController`
 - user:
   - user `<%= user_bar %>` in `applicattion.html.erb` to include the administration bar for users
-  - to associate other models to `Skrw::User` create `models/skrw/user.rb` like:
+  - to `Skrw::User` with another model, override or add functionalities, create `models/skrw/user.rb` like:
   ```ruby
   module Skrw
     class User < ApplicationRecord
       include Skrw::Concerns::User
+
+      # custom association
       has_many :posts
-      # other additional functions…
+
+      # override methods
+      def email
+        "custom #{email}"
+      end
+
+      # add custom methods
+      def superpower
+        "PWNED!"
+      end
     end
   end
   ```
