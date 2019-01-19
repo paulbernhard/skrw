@@ -34,5 +34,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'shrine-memory', '~> 0.3.0' # in-memory storage for faster upload tests
   spec.add_dependency 'image_processing', '~> 1.7', '>= 1.7.1' # image processing for uploads
 
+  spec.add_dependency 'redis', '~> 4.1' # redis
+  spec.add_dependency 'sidekiq', '~> 5.2', '>= 5.2.5' # background jobs
+
   spec.add_development_dependency 'pg'
 end

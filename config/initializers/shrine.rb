@@ -10,7 +10,7 @@ if Rails.env.test?
 else
   Shrine.storages = {
     cache: Shrine::Storage::FileSystem.new('public', prefix: 'uploads/cache'),
-    store: Shrine::Storage::FileSystem.new('public', prefix: 'uploads')
+    store: Shrine::Storage::FileSystem.new('public', prefix: 'uploads/store')
   }
 end
 
@@ -23,3 +23,4 @@ Shrine.plugin :delete_raw if Rails.env.production?
 Shrine.plugin :remove_invalid
 Shrine.plugin :versions
 Shrine.plugin :processing
+Shrine.plugin :backgrounding

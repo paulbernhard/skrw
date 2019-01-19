@@ -54,6 +54,7 @@ $ gem install skrw
 - mailer:
   - set production log level to WARN in order to avoid leaking recovery passwords to production.log in `config/environments/production.rb` with `config.log_level = :warn`
 - uploadable:
+  - requires a running sidekiq and redis server
   - `Skrw::Concerns::Uploadable` can be hooked to a model and requires at least the fields `file_data` (json), `file_mime_type` (string), `promoted` (boolean, default: false). Use like:
   ```ruby
   class Upload < ApplicationRecord
@@ -61,6 +62,11 @@ $ gem install skrw
   end
   ```
   - file processors require `libvips` installed on system
+  - file type and size validation can be set with
+  ```ruby
+  config.allowed_upload_mime_types = %W(image/jpg image/png image/gif video/quicktime video/mp4)
+  config.max_upload_file_size = 200.megabytes
+  ```
 
 ## Usage / Configuration
 

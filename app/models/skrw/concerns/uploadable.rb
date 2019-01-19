@@ -5,13 +5,18 @@ module Skrw::Concerns::Uploadable
   extend ActiveSupport::Concern
 
   included do
+    # hook shrine FileUploader
     include Skrw::FileUploader::Attachment.new(:file)
 
     # update processed field
     before_save :update_promoted
 
+    # scopes
     scope :images, -> { where(file_type: 'image') }
     scope :videos, -> { where(file_type: 'video') }
+
+    # validate presence of file
+    validates :file, presence: true
   end
 
   def file_type
