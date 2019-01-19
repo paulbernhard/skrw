@@ -10,7 +10,7 @@ if Rails.env.test?
 else
   Shrine.storages = {
     cache: Shrine::Storage::FileSystem.new('public', prefix: 'uploads/cache'),
-    cache: Shrine::Storage::FileSystem.new('public', prefix: 'uploads')
+    store: Shrine::Storage::FileSystem.new('public', prefix: 'uploads')
   }
 end
 
