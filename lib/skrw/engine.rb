@@ -5,7 +5,7 @@ module Skrw
     # include helpers
     initializer('authentication') do
       ActiveSupport.on_load(:action_controller) do
-        include Skrw::Concerns::Authentication
+        include Skrw::Concerns::ApplicationController
         helper Skrw::UserHelper
         helper Skrw::UploadHelper
       end

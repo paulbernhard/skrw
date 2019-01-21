@@ -1,4 +1,4 @@
-module Skrw::Concerns::Authentication
+module Skrw::Concerns::ApplicationController
   # extend ActiveSupport::Concern
 
   def authenticate_admin!
