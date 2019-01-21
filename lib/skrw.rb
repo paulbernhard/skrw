@@ -24,6 +24,10 @@ module Skrw
     # mattr_accessor :form_css_base_class
     # self.form_css_base_class = 'skrwf'
 
+    # process uploaded files in background jobs (requires Redis and Sidekiq)
+    mattr_accessor :process_uploads_in_background_job
+    self.process_uploads_in_background_job = false
+
     # allowed upload mime-types
     mattr_accessor :allowed_upload_mime_types
     self.allowed_upload_mime_types = %W(image/jpg image/png image/gif video/quicktime video/mp4)
@@ -31,6 +35,11 @@ module Skrw
     # maximum upload file size
     mattr_accessor :max_upload_file_size
     self.max_upload_file_size = 200.megabytes
+
+    # process image, video
+    mattr_accessor :image_processor, :video_processor
+    self.image_processor = false
+    self.video_processor = false
   end
 
   # setup method for configuration

@@ -3,7 +3,9 @@ module Skrw
     include Sidekiq::Worker
 
     def perform(data)
-      Shrine::Attacher.delete(data)
+      # can use attacher object to manipulate record after processing
+      # such as: attacher.record.update(published: false)
+      attacher = Shrine::Attacher.delete(data)
     end
   end
 end

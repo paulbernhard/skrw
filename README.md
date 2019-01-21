@@ -54,18 +54,36 @@ $ gem install skrw
 - mailer:
   - set production log level to WARN in order to avoid leaking recovery passwords to production.log in `config/environments/production.rb` with `config.log_level = :warn`
 - uploadable:
-  - requires a running sidekiq and redis server
   - `Skrw::Concerns::Uploadable` can be hooked to a model and requires at least the fields `file_data` (json), `file_mime_type` (string), `promoted` (boolean, default: false). Use like:
   ```ruby
   class Upload < ApplicationRecord
     include Skrw::Concerns::Uploadable
   end
   ```
-  - file processors require `libvips` installed on system
+  - default file processors require `libvips` installed on system
   - file type and size validation can be set with
   ```ruby
   config.allowed_upload_mime_types = %W(image/jpg image/png image/gif video/quicktime video/mp4)
   config.max_upload_file_size = 200.megabytes
+  ```
+  - file processing can be handled in background with `config.process_uploads_in_background_job = false` in `skrw.rb` initializer
+  - default file processors are `Image`, `Video` and `File`. To define custom file processing create a processor like `image.rb` in `app/uploaders/processors` and override the `process method`. The expected output is a single file or a versions hash:
+  ```ruby
+  require 'image_processing/vips'
+
+  module Skrw::Processors::Image
+
+    def self.process(file)
+      pipeline = ImageProcessing::Vips
+        .source(file)
+        .convert('jpg')
+
+      wtf = pipeline.resize_to_limit!(20,20)
+      wtf2 = pipeline.resize_to_limit!(10,10)
+
+      { wtf: wtf, wtf2: wtf2 }
+    end
+  end
   ```
 
 ## Usage / Configuration
