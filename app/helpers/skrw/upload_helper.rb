@@ -19,8 +19,13 @@ module Skrw
 
         # sources from versions
         versions.each do |version|
-          identifier = version.first
-          media = version.last
+          if version.is_a?(Array)
+            identifier = version.first
+            media = version.last
+          else
+            identifier = version
+            media = nil
+          end
 
           # build srcset
           srcset = [file[identifier].url]
