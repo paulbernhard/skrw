@@ -12,6 +12,7 @@ Skrw::Engine.routes.draw do
   end
 
   resources :users, only: [:index, :edit, :update, :destroy]
+  resources :uploads, only: [:create, :destroy]
 
   root to: 'users#index'
 end

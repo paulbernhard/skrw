@@ -1,0 +1,1 @@
+json.partial!('skrw/uploads/upload', upload: @upload)
