@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_19_162007) do
+ActiveRecord::Schema.define(version: 2019_01_22_095550) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "skrw_uploads", force: :cascade do |t|
+    t.string "uploadable_type"
+    t.bigint "uploadable_id"
+    t.json "file"
+    t.string "file_mime_type"
+    t.boolean "promoted", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["uploadable_type", "uploadable_id"], name: "index_skrw_uploads_on_uploadable_type_and_uploadable_id"
+  end
 
   create_table "skrw_users", force: :cascade do |t|
     t.string "email", default: "", null: false
