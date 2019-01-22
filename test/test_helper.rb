@@ -22,3 +22,9 @@ end
 # require additional minitest features
 require 'minitest/reporters'
 Minitest::Reporters.use!
+
+# test background jobs inline
+if defined?(Sidekiq)
+  require 'sidekiq/testing'
+  Sidekiq::Testing.inline!
+end

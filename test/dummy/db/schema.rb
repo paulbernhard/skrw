@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2019_01_22_095550) do
   create_table "skrw_uploads", force: :cascade do |t|
     t.string "uploadable_type"
     t.bigint "uploadable_id"
-    t.json "file"
+    t.json "file_data"
     t.string "file_mime_type"
     t.boolean "promoted", default: false
     t.datetime "created_at", null: false

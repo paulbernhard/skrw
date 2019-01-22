@@ -30,7 +30,7 @@ module Skrw
 
     # allowed upload mime-types
     mattr_accessor :allowed_upload_mime_types
-    self.allowed_upload_mime_types = %W(image/jpg image/png image/gif video/quicktime video/mp4)
+    self.allowed_upload_mime_types = %W(image/jpg image/jpeg image/png image/gif video/quicktime video/mp4)
 
     # maximum upload file size
     mattr_accessor :max_upload_file_size
