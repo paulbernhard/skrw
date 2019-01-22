@@ -4,4 +4,5 @@ pkg/
 test/dummy/log/*.log
 test/dummy/tmp/
 test/dummy/public/uploads
+public/uploads
 skrw_todo.txt
