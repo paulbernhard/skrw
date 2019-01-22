@@ -1,52 +1,50 @@
 module Skrw
   module UploadHelper
 
-
-    # RESPONSIVE PICTURE TAG
-    # versions defines available versions for image sources
-    # expects an array of symbols and media querries, such as 
-    # versions: [[:small, "(max-width: 375px)"], [:large, "(min-width: 376px)"]]
+    # image_tag for file object with optional versions hash
+    # will use first in hash or 'version' argument
     # 
-    # densities defines multiple densities per version
-    # expects an array of symbols, such as densities: [:2x, :3x]
-    # this would look for versions :small, :small_2x, :large, :large_2x
+    # use:  file_image_tag(file, version: :small, options)
 
-    def responsive_picture_tag(file, versions: [], densities: [], caption: nil)
-      output = "".html_safe
+    def file_image_tag(file, version: nil, **options)
+      
+      # if file has versions else file.url
+      if file.is_a?(Hash)
+        key = version.nil? ? file.keys.first : version
+        url = file[key].url
+        image_tag(url, options)
+      else
+        image_tag(file.url, options)
+      end
+    end
 
-      # is file a Hash with versions or a single file
+    # responsive image_tag with srcset support 
+    # for file object with versions hash will create srcset 
+    # from versions with widths from file.metadata['width']
+    # 'default' argument sets :version used for img src
+    # 
+    # use:  file_srcset_image_tag(file, versions: [:small, :medium, :large]
+    #                             default: :large, options)
+
+    def file_srcset_image_tag(file, versions: [], default: nil, **options)
+      
+      # with srcset / src if versions else only src
       if file.is_a?(Hash) && versions.any?
 
-        # sources from versions
-        versions.each do |version|
-          if version.is_a?(Array)
-            identifier = version.first
-            media = version.last
-          else
-            identifier = version
-            media = nil
-          end
+        # set src to default or first of versions
+        src = default.nil? ? file.values.first.url : file[default].url
+        
+        # build srcset and merge with image options
+        srcset = versions.map { |v| "#{file[v].url} #{file[v].metadata['width']}w" }.join(', ')
+        options.merge!({ srcset: srcset })
 
-          # build srcset
-          srcset = [file[identifier].url]
-
-          # add densities to srcset (such as small_2x)
-          densities.each do |density|
-            d_identifier = "#{identifier}_#{density}".to_sym
-            srcset << "#{file[d_identifier].url} #{density}" if file.has_key?(d_identifier)
-          end
-
-          # add version source to output
-          output << %Q(<source srcset="#{srcset.join(', ')}" media="#{media}">).html_safe
-        end
-
-        # add first version as default img
-        output << image_tag(file.values.first.url, alt: "#{caption unless caption.nil?}")
+        # output image_tag with srcset (merged into options)
+        image_tag(src, options)
       else
-        output << image_tag(file.url, alt: "#{caption unless caption.nil?}")
-      end
 
-      %Q(<picture>#{output}</picture>).html_safe
+        # output image_tag with src only
+        image_tag(file.url, options)
+      end
     end
   end
 end
