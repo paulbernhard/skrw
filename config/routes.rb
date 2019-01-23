@@ -12,7 +12,7 @@ Skrw::Engine.routes.draw do
   end
 
   resources :users, only: [:index, :edit, :update, :destroy]
-  resources :uploads, only: [:create, :destroy]
+  resources :uploads, only: [:create, :destroy], defaults: { format: :json }
 
   root to: 'users#index'
 end

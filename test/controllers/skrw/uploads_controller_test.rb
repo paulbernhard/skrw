@@ -13,22 +13,25 @@ module Skrw
     test 'create upload' do
       sign_in(@user)
       assert_difference('Upload.count', 1) do
-        post skrw.uploads_url, params: { upload: { file: Rack::Test::UploadedFile.new(@image_path, 'image/jpeg') } }
+        post skrw.uploads_url, params: { upload: { file: Rack::Test::UploadedFile.new(@image_path, 'image/jpeg') } }, xhr: true
       end
     end
 
     test 'create upload without file fails' do
       sign_in(@user)
       assert_no_difference('Upload.count', 1) do
-        post skrw.uploads_url, params: { upload: { file: nil } }
+        post skrw.uploads_url, params: { upload: { file: nil } }, xhr: true
       end
+
+      assert_response :unprocessable_entity
     end
 
     test 'create upload without login requires authentication' do
       assert_no_difference('Upload.count') do
-        post skrw.uploads_url, params: { upload: { file: Rack::Test::UploadedFile.new(@image_path, 'image/jpeg') } }
+        post skrw.uploads_url, params: { upload: { file: Rack::Test::UploadedFile.new(@image_path, 'image/jpeg') } }, xhr: true
       end
-      assert_redirected_to skrw.new_user_session_url
+
+      assert_response :unauthorized
     end
 
     test 'destroys upload' do
@@ -38,7 +41,7 @@ module Skrw
 
       sign_in(@user)
       assert_difference('Upload.count', -1) do
-        delete upload_url(@upload)
+        delete upload_url(@upload), xhr: true
       end
     end
 
@@ -48,8 +51,10 @@ module Skrw
       @upload.reload
       
       assert_no_difference('Upload.count') do
-        delete upload_url(@upload)
+        delete upload_url(@upload), xhr: true
       end
+
+      assert_response :unauthorized
     end
   end
 end

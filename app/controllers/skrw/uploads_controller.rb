@@ -3,20 +3,22 @@ require_dependency "skrw/application_controller"
 module Skrw
   class UploadsController < ApplicationController
     before_action :authenticate_user!
+    respond_to :json
 
     def create
       @upload = Skrw::Upload.new(upload_params)
-      @upload.save
-      respond_to do |format|
-        format.json { render :show, status: 200, location: @upload }
+      if @upload.save
+        render 'show.json.jbuilder', status: 200, location: @upload
+      else
+        @object = @upload
+        render 'skrw/shared/errors.json.jbuilder', status: :unprocessable_entity
       end
     end
 
     def destroy
       @upload = Skrw::Upload.find(params[:id])
-      @upload.destroy
-      respond_to do |format|
-        format.json { render :show, status: 200 }
+      if @upload.destroy
+        render 'show.json.jbuilder', status: 200
       end
     end
 
