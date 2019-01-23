@@ -1,3 +1,21 @@
 <div class="skrw-upload" id="upload_<%= upload.id %>">
-  Upload html contents…
+  <% if upload.file %>
+    
+    <% if upload.file_type == 'image' %>
+      
+      <%= file_image_tag(upload.file) %>
+
+    <% else %>
+
+      <% if file.is_a?(Hash) %>
+        Files(s): <%= file.values.map { |f| f.url }.join(', ') %>
+      <% else %>
+        File: <%= file.url %>
+      <% end %>
+
+    <% end %>
+
+  <% end %>
+
+  <%= link_to('Delete Upload', skrw.upload_path(upload), method: :delete, remote: true) %>
 </div>
