@@ -23,8 +23,8 @@ Skrw.setup do |config|
 
   # enable processing for images, videos
   # create custom processor modules like app/uploaders/skrw/processors/image.rb (see README.md)
-  # self.image_processor = false
-  # self.video_processor = false
+  # config.image_processor = false
+  # config.video_processor = false
 
   # CSS base class for forms (disabled)
   # config.form_css_base_class = 'skrwf'

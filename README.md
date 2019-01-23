@@ -20,7 +20,6 @@ $ gem install skrw
 
 - mount engine `mount Skrw::Engine, at: '/admin'`
 - install migrations `rails skrw:install:migrations` and `rails db:migrate`
-- include Skrw helpers `helper Skrw::Engine.helpers` in `ApplicationController`
 - user:
   - user `<%= user_bar %>` in `applicattion.html.erb` to include the administration bar for users
   - to `Skrw::User` with another model, override or add functionalities, create `models/skrw/user.rb` like:
