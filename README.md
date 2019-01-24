@@ -84,6 +84,20 @@ $ gem install skrw
     end
   end
   ```
+  - to use an own `MyUpload` model with `Uploadable` and the XHR create / destroy methods of `Skrw::UploadsController`, set routes for your controller and inherit from `Skrw::UploadsController`:
+  ```ruby
+  # add your resource to config/routes.rb
+  resources :my_uploads, only: [:create, :destroy], defaults: { format: :json }
+
+  # inherit from Skrw::UploadsController
+  # and override the upload resource with your model
+  class MyUploadsController < Skrw::UploadsController
+
+    def resource
+      MyUpload
+    end
+  end
+  ```
 
 ## Usage / Configuration
 

@@ -12,6 +12,9 @@ Skrw::Engine.routes.draw do
   end
 
   resources :users, only: [:index, :edit, :update, :destroy]
+
+  # mount uploader endpoint for ajax / xhr uploads
+  mount Skrw::FileUploader.upload_endpoint(:cache) => 'uploads/xhr'
   resources :uploads, only: [:create, :destroy], defaults: { format: :json }
 
   root to: 'users#index'

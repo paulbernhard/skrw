@@ -1,5 +1,5 @@
 module Skrw
-  class ApplicationController < ActionController::Base
+  class ApplicationController < ::ApplicationController
     protect_from_forgery with: :exception
     include Skrw::Concerns::ApplicationController
 

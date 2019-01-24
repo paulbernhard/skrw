@@ -6,7 +6,7 @@ module Skrw
     respond_to :json
 
     def create
-      @upload = Skrw::Upload.new(upload_params)
+      @upload = resource.new(upload_params)
       if @upload.save
         render 'show.json.jbuilder', status: 200, location: @upload
       else
@@ -16,10 +16,14 @@ module Skrw
     end
 
     def destroy
-      @upload = Skrw::Upload.find(params[:id])
+      @upload = resource.find(params[:id])
       if @upload.destroy
         render 'show.json.jbuilder', status: 200
       end
+    end
+
+    def resource
+      Skrw::Upload
     end
 
     private

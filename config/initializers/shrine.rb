@@ -27,3 +27,4 @@ Shrine.plugin :remove_invalid # remove file if it's invalid
 Shrine.plugin :versions # create versions (such as for responsive images or movie stills)
 Shrine.plugin :processing # process uploaded files
 Shrine.plugin :backgrounding # move files to background jobs (will have to be enabled in skrw.rb initializer)
+Shrine.plugin :upload_endpoint # endpoint for direct uploads via ajax / xhr
