@@ -43,7 +43,8 @@ module Skrw
       else
 
         # output image_tag with src only
-        image_tag(file.url, options)
+        src = file.is_a?(Hash) ? file.values.first.url : file.url
+        image_tag(src, options)
       end
     end
   end
