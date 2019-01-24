@@ -53,10 +53,19 @@ $ gem install skrw
 - mailer:
   - set production log level to WARN in order to avoid leaking recovery passwords to production.log in `config/environments/production.rb` with `config.log_level = :warn`
 - uploadable:
-  - `Skrw::Concerns::Uploadable` can be hooked to a model and requires at least the fields `file_data` (json), `file_mime_type` (string), `promoted` (boolean, default: false). Use like:
+  - use the Skrw::Upload model for basic uploading
+  - to use your own model hook `Skrw::Concerns::Uploadable` to your model and requires at least the fields `file_data` (json), `file_mime_type` (string), `promoted` (boolean, default: false). Running your model tests, include `Skrw::Concerns::UploadTest` into your model for basic functionality tests.
   ```ruby
-  class Upload < ApplicationRecord
+  # app/models/my_upload.rb
+  class MyUpload < ApplicationRecord
     include Skrw::Concerns::Uploadable
+  end
+
+  # test/models/my_upload_test.rb
+  require 'test_helper'
+
+  class MyUploadTest < ActiveSupport::TestCase
+    include Skrw::Concerns::UploadTest
   end
   ```
   - default file processors require `libvips` installed on system
