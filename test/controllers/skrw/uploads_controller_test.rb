@@ -15,6 +15,8 @@ module Skrw
       assert_difference('Upload.count', 1) do
         post skrw.uploads_url, params: { upload: { file: Rack::Test::UploadedFile.new(@image_path, 'image/jpeg') } }, xhr: true
       end
+
+      assert_response :success
     end
 
     test 'create upload without file fails' do
@@ -30,6 +32,39 @@ module Skrw
       assert_no_difference('Upload.count') do
         post skrw.uploads_url, params: { upload: { file: Rack::Test::UploadedFile.new(@image_path, 'image/jpeg') } }, xhr: true
       end
+
+      assert_response :unauthorized
+    end
+
+    test 'update upload' do
+      @upload = Skrw::Upload.new
+      @upload.save(validate: false)
+      @upload.reload
+
+      sign_in(@user)
+      patch skrw.upload_url(@upload), params: { upload: { file: Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/files/image.png'), 'image/png') } }, xhr: true
+
+      assert_match /image\/png/, @upload.reload.file.mime_type
+      assert_response :success
+    end
+
+    test 'update upload with invalid file fails' do
+      @upload = Skrw::Upload.new
+      @upload.save(validate: false)
+      @upload.reload
+
+      sign_in(@user)
+      patch skrw.upload_url(@upload), params: { upload: { file: nil } }
+
+      assert_response :unprocessable_entity
+    end
+
+    test 'update upload without login requires authentication' do
+      @upload = Skrw::Upload.new
+      @upload.save(validate: false)
+      @upload.reload
+
+      patch skrw.upload_url(@upload), params: { upload: { file: nil } }
 
       assert_response :unauthorized
     end

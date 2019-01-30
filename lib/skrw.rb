@@ -1,5 +1,6 @@
 require 'skrw/engine'
 require 'devise'
+require 'jbuilder'
 
 module Skrw
 

@@ -20,7 +20,7 @@ module Skrw::Concerns::Uploadable
   end
 
   def file_type
-    self.file_mime_type.split('/')[0]
+    self.file_mime_type.split('/')[0] if self.file
   end
 
   private

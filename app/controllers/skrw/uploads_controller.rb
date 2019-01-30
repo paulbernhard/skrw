@@ -8,17 +8,27 @@ module Skrw
     def create
       @upload = resource.new(upload_params)
       if @upload.save
-        render 'show.json.jbuilder', status: 200, location: @upload
+        render 'upload', status: :ok, location: @upload
       else
         @object = @upload
-        render 'skrw/shared/errors.json.jbuilder', status: :unprocessable_entity
+        render 'skrw/shared/errors', status: :unprocessable_entity
+      end
+    end
+
+    def update
+      @upload = resource.find(params[:id])
+      if @upload.update_attributes(upload_params)
+        render 'upload', status: :ok, location: @upload
+      else
+        @object = @upload
+        render 'skrw/shared/errors', status: :unprocessable_entity
       end
     end
 
     def destroy
       @upload = resource.find(params[:id])
       if @upload.destroy
-        render 'show.json.jbuilder', status: 200
+        render 'upload', status: :ok
       end
     end
 

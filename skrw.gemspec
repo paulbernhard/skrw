@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'rails', '~> 5.2.2'
   spec.add_dependency 'sass-rails', '~> 5.0', '>= 5.0.7' # scss compilation
+  spec.add_dependency 'jbuilder', '~> 2.8' # jbuilder for JSON responses
 
   spec.add_dependency 'devise', '~> 4.5' # authentication of user
 
