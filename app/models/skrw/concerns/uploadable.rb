@@ -20,7 +20,8 @@ module Skrw::Concerns::Uploadable
   end
 
   def file_type
-    self.file_mime_type.split('/')[0] if self.file
+    metadata = self.file.is_a?(Hash) ? self.file.values.first.metadata : self.file.metadata
+    metadata['mime_type'].split('/')[0]
   end
 
   private

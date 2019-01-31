@@ -20,11 +20,10 @@ module Skrw::Concerns::UploadTest
       assert_not @upload.valid?
     end
 
-    test 'sets mime and file types' do
+    test 'sets file types' do
       @upload.file = File.open(@image_path)
       @upload.save
       @upload.reload
-      assert_match /^image\/.+$/, @upload.file_mime_type, "string starts with 'image/'"
       assert_equal 'image', @upload.file_type
     end
 
