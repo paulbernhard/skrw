@@ -47,5 +47,24 @@ module Skrw
         image_tag(src, options)
       end
     end
+
+    # uploads panel for uploads within scope of parent
+    # to work with stimulus controller
+
+    def uploads_panel(uploads: nil, parent: nil, **options)
+      # add class
+      options[:class] = options[:class] + " s-uploads"
+
+      # add data-tags for stimulus controller
+      data = {  'controller': 'uploads', 'uploads-index-url': uploads_path,
+                'uploads-uploadable-type': parent.nil? ? nil : parent.class.name,
+                'uploads-uploadable-id': parent.nil? ? nil : parent.id }
+
+      # merge data with options
+      options[:data] = options[:data] || {}
+      options[:data].merge!(data)
+
+      render partial: 'skrw/uploads/uploads', locals: { uploads: uploads, parent: parent, options: options }
+    end
   end
 end

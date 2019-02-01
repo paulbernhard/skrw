@@ -1,5 +1,6 @@
 // sizes
 $unit: .2rem;
+$gutter: 10 * $unit;
 
 // font
 $font-family: Courier;
@@ -10,6 +11,11 @@ $line-height: 1.2em;
 // colors
 $link-color: black;
 $link-hover-color: black;
+$control-color: blue;
 
 // breakpoints
 $break-small: 375px;
+
+// widths
+$width-s: $break-small;
+$width-m: 600px;

@@ -36,6 +36,18 @@
   line-height: $line-height-factor * $line-height;
 }
 
+@mixin content-brackets($before, $after) {
+  &:before {
+    content: $before;
+    margin-right: .1em;
+  }
+
+  &:after {
+    content: $after;
+    margin-left: .1em;
+  }
+}
+
 // clearfix placeholder
 
 %clearfix {

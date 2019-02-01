@@ -1,0 +1,27 @@
+<%= content_tag(:div, options) do %>
+
+  <% uploads.each do |upload| %>
+
+    <div class='s-uploads__item' data-target='uploads.item'>
+
+      <%= render 'skrw/uploads/form', upload: upload, multiple: false %>
+
+      <div class="s-type--secondary">
+        Created: <%= upload.created_at %>
+      </div>
+
+      <div class="s-controls">
+        <%= link_to 'Delete', upload_path(upload), method: :delete, remote: true,
+                    data: { 'action': 'ajax:success->uploads#remove' } %>
+
+
+        <%= link_to 'Move Up', upload_path(upload), method: :delete, remote: true,
+                    data: { 'action': 'ajax:success->uploads#remove' } %>
+
+
+        <%= link_to 'Move Down', upload_path(upload), method: :delete, remote: true,
+                    data: { 'action': 'ajax:success->uploads#remove' } %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

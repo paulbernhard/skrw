@@ -67,3 +67,10 @@
     }
   }
 }
+
+.s-uploads {
+  
+  &__item {
+    max-width: $width-s;
+  }
+}

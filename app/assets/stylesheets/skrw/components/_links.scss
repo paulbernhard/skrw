@@ -1,13 +1,23 @@
-.skrw {
-  a {
-    color: $link-color;
+.s-controls {
+  
+  > * {
+    display: inline-block;
+    @extend .s-control;
+  }
+}
 
-    &:visited {
-      color: $link-color;
-    }
+.s-control {
+  padding: 0 .2em;
+  @include content-brackets('--', '--');
+  @extend .s-type--secondary;
+  color: $control-color;
+  text-decoration: none;
 
-    &:hover {
-      color: $link-hover-color;
-    }
+  &:visited {
+    color: $control-color;
+  }
+
+  &:hover {
+    color: $link-hover-color;
   }
 }

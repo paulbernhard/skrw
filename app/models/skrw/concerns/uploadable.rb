@@ -14,6 +14,7 @@ module Skrw::Concerns::Uploadable
     # scopes
     scope :images, -> { where(file_type: 'image') }
     scope :videos, -> { where(file_type: 'video') }
+    scope :chronological, -> { order(created_at: :desc) }
 
     # validate presence of file
     validates :file, presence: true

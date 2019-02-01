@@ -108,11 +108,6 @@ $ gem install skrw
       MyUpload
     end
 
-    # set default view to render after #create, #update, #destroy
-    def render_upload(status: nil)
-      render 'my_uploads/upload', status: status
-    end
-
     private
 
       # override upload_params
@@ -121,6 +116,7 @@ $ gem install skrw
       end
   end
   ```
+  - In order to use your own form for custom attributes of your `MyUpload` copy Skrw's `uploads/_form.html.erb` to your views folder `app/views/skrw/uploads/_form.html.erb` and modify it
 
 ## Usage / Configuration
 

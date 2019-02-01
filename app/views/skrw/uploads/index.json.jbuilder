@@ -1,0 +1,1 @@
+json.html(render partial: 'skrw/uploads/uploads', locals: { uploads: @uploads, upload_form: 'skrw/uploads/form' }, formats: [:html])

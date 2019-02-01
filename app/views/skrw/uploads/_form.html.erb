@@ -5,6 +5,8 @@
                       'uploader-multiple': multiple, 'uploader-allowed-file-types': Skrw.allowed_upload_mime_types.join(',')
               } do |f| %>
 
+  <h3><%= upload.new_record? ? 'New Upload' : 'Edit Upload' %></h3>
+
   <%= f.errors %>
   
   <%= f.hidden_field(:uploadable_type, value: f.object.uploadable_type) %>

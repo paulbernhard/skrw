@@ -5,9 +5,14 @@ module Skrw
     before_action :authenticate_user!
     respond_to :json
 
+    # index all uploads or uploads within the scope of parent
+    # with the params :uploadable_type and :uploadable_id in params
+    
     def index
-      @uploads = resource.all
+      @uploads = resource.where(uploadable_type: params[:uploadable_type], uploadable_id: params[:uploadable_id]).chronological
     end
+
+    # create upload and return upload.json or errors.json
 
     def create
       @upload = resource.new(upload_params)
@@ -19,6 +24,8 @@ module Skrw
       end
     end
 
+    # update upload and return upload.json or errors.json
+
     def update
       @upload = resource.find(params[:id])
       if @upload.update_attributes(upload_params)
@@ -29,6 +36,8 @@ module Skrw
       end
     end
 
+    # destroy upload and return upload.json
+
     def destroy
       @upload = resource.find(params[:id])
       if @upload.destroy
@@ -36,12 +45,14 @@ module Skrw
       end
     end
 
+    # define resource used as Model
+
     def resource
       Skrw::Upload
     end
 
     def render_upload(status: nil)
-      render 'skrw/uploads/upload', status: status
+      render 'upload', status: status
     end
 
     private
