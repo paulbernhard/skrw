@@ -1,21 +1,12 @@
-<div class="skrw-upload" id="upload_<%= upload.id %>">
-  <% if upload.file %>
-    
-    <% if upload.file_type == 'image' %>
-      
-      <%= file_image_tag(upload.file) %>
+<%= form_with model: upload, builder: Skrw::FormBuilder, class: 's-form' do |f| %>
+  
+  <%= f.errors %>
 
-    <% else %>
+  <%= f.hidden_field(:uploadable_type, value: f.object.uploadable_type) %>
+  <%= f.hidden_field(:uploadable_id, value: f.object.uploadable_id) %>
+  <%= f.hidden_field(:file, value: f.object.cached_file_data) %>
 
-      <% if file.is_a?(Hash) %>
-        Files(s): <%= file.values.map { |f| f.url }.join(', ') %>
-      <% else %>
-        File: <%= file.url %>
-      <% end %>
+  <%= f.file_field(:file) %>
 
-    <% end %>
-
-  <% end %>
-
-  <%= link_to('Delete Upload', skrw.upload_path(upload), method: :delete, remote: true) %>
-</div>
+  <%= f.submit %>
+<% end %>

@@ -9,7 +9,7 @@ module Skrw::Concerns::Uploadable
     include Skrw::FileUploader::Attachment.new(:file)
 
     # update processed field
-    before_save :update_promoted
+    before_save :update_promoted, :update_mime_type
 
     # scopes
     scope :images, -> { where(file_type: 'image') }
@@ -20,17 +20,26 @@ module Skrw::Concerns::Uploadable
   end
 
   def file_type
-    metadata = self.file.is_a?(Hash) ? self.file.values.first.metadata : self.file.metadata
-    metadata['mime_type'].split('/')[0]
+    self.file_mime_type.split('/')[0] if self.file
   end
 
   private
 
+    # update promotion state after upload is stored
     def update_promoted
       if file_data_changed? && file_attacher.cached?
         self.promoted = false
       elsif file_data_changed? && file_attacher.stored?
         self.promoted = true
+      end
+    end
+
+    # update file_mime_type with metadata from
+    # file or first version in file hash
+    def update_mime_type
+      if file_data_changed?
+        metadata = self.file.is_a?(Hash) ? self.file.values.first.metadata : self.file.metadata
+        self.file_mime_type = metadata['mime_type']
       end
     end
 end
