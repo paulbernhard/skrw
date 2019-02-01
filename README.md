@@ -108,6 +108,11 @@ $ gem install skrw
       MyUpload
     end
 
+    # set default view to render after #create, #update, #destroy
+    def render_upload(status: nil)
+      render 'my_uploads/upload', status: status
+    end
+
     private
 
       # override upload_params
