@@ -10,6 +10,17 @@ module Skrw
       @image_path = File.join(Rails.root, 'test/files', 'image.jpg')
     end
 
+    test 'get index is success' do
+      sign_in(@user)
+      get skrw.uploads_url
+      assert_response :success
+    end
+
+    test 'get index requires authentication' do
+      get skrw.uploads_url
+      assert_response :unauthorized
+    end
+
     test 'create upload' do
       sign_in(@user)
       assert_difference('Upload.count', 1) do

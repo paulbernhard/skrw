@@ -1,4 +1,4 @@
-.skrw-session {
+.s-session {
   position: fixed;
   z-index: 99;
   bottom: 0;
@@ -12,11 +12,11 @@
   }
 }
 
-.skrw-flashes {
+.s-flashes {
   margin-bottom: .25 * $line-height;
 }
 
-.skrw-flash {
+.s-flash {
 
   &--alert, &--error {
     color: red;

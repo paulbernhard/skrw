@@ -23,6 +23,14 @@ module Skrw::Concerns::Uploadable
     self.file_mime_type.split('/')[0] if self.file
   end
 
+  def file_url(version: nil)
+    if self.file.is_a?(Hash)
+      return version.nil? ? self.file.values.first.url : self.file[version].url
+    else
+      return self.file.url
+    end
+  end
+
   private
 
     # update promotion state after upload is stored

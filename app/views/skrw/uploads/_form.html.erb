@@ -1,0 +1,28 @@
+<% multiple = false if local_assigns[:multiple].nil? %>
+
+<%= form_with model: upload, class: 's-form', builder: Skrw::FormBuilder, 
+              data: { 'controller': 'uploader', 'uploader-endpoint': '/uploads/xhr', 
+                      'uploader-multiple': multiple, 'uploader-allowed-file-types': Skrw.allowed_upload_mime_types.join(',')
+              } do |f| %>
+
+  <%= f.errors %>
+  
+  <%= f.hidden_field(:uploadable_type, value: f.object.uploadable_type) %>
+  <%= f.hidden_field(:uploadable_id, value: f.object.uploadable_id) %>
+  <%= f.hidden_field(:file, value: nil, data: { 'target': 'uploader.file' }) %>
+
+  <div class="s-uploader">
+
+    <% if upload.file && upload.file_type == 'image' %>
+      <div class="s-uploader__drop" data-target="uploader.drop" style="background-image: url(<%= upload.file_url(:small) %>)"></div>
+    <% else %>
+      <div class="s-uploader__drop" data-target="uploader.drop"></div>
+    <% end %>
+
+    <div class="s-uploader__status" data-target='uploader.status'></div>
+    <div class="s-uploader__progress" data-target='uploader.progress'></div>
+    <div class="s-uploader__informer" data-target='uploader.informer'></div>
+  </div>
+
+  <%= f.submit "Save", data: { 'action': 'click->uploader#submit' } %>
+<% end %>

@@ -15,7 +15,7 @@ Skrw::Engine.routes.draw do
 
   # mount uploader endpoint for ajax / xhr uploads
   mount Skrw::FileUploader.upload_endpoint(:cache) => 'uploads/xhr'
-  resources :uploads, only: [:create, :update, :destroy], defaults: { format: :json }
+  resources :uploads, only: [:index, :create, :update, :destroy], defaults: { format: :json }
 
   root to: 'users#index'
 end

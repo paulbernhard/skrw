@@ -1,23 +1,24 @@
 @import 'form_fields';
 
-.skrwf {
+.s-form {
+  margin-bottom: $line-height;
 
   &__row {
 
     &--inline {
       
-      .skrwf__group,
-      .skrwf__controls {
+      .s-form__group,
+      .s-form__controls {
         display: inline-block;
         margin-right: 2 * $unit;
       }
       
-      .skrwf__group {
-        @extend .skrwf__group--inline;
+      .s-form__group {
+        @extend .s-form__group--inline;
       }
       
-      .skrwf__controls {
-        @extend .skrwf__controls--inline;
+      .s-form__controls {
+        @extend .s-form__controls--inline;
       }
     }
   }

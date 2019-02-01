@@ -3,3 +3,7 @@
   font-size: 1.05em;
   line-height: $line-height;
 }
+
+.s-type--secondary {
+  @include type-setting(.8);
+}

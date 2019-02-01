@@ -5,12 +5,17 @@ module Skrw
     before_action :authenticate_user!
     respond_to :json
 
+    def index
+      @uploads = resource.all
+    end
+
     def create
       @upload = resource.new(upload_params)
       if @upload.save
         render_upload(status: :created)
       else
-        render_upload(status: :unprocessable_entity)
+        @object = @upload
+        render 'skrw/shared/errors', status: :unprocessable_entity
       end
     end
 
@@ -20,7 +25,7 @@ module Skrw
         render_upload(status: :ok)
       else
         @object = @upload
-        render_upload(status: :unprocessable_entity)
+        render 'skrw/shared/errors', status: :unprocessable_entity
       end
     end
 
@@ -36,7 +41,7 @@ module Skrw
     end
 
     def render_upload(status: nil)
-      render 'upload', status: status
+      render 'skrw/uploads/upload', status: status
     end
 
     private
