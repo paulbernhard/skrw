@@ -8,10 +8,10 @@
 
 .s-control {
   padding: 0 .2em;
-  @include content-brackets('--', '--');
   @extend .s-type--secondary;
   color: $control-color;
   text-decoration: none;
+  cursor: pointer;
 
   &:visited {
     color: $control-color;

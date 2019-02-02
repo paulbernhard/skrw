@@ -50,6 +50,13 @@ module Skrw
       end
     end
 
+    # same as label_group with row wrapper
+    def label_row_group(method, text = nil, field_type, field_options: {}, with_errors: false, **options)
+      row(options) do
+        label_group(method, text = nil, field_type, field_options: {}, with_errors: false)
+      end
+    end
+
     # form controls wrapper
     def controls(**options, &block)
       @template.content_tag(:div, insert_class("#{base_class}controls", options)) do

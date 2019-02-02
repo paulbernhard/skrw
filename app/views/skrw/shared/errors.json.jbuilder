@@ -1,1 +1,1 @@
-json.html(render partial: 'skrw/shared/errors', locals: { object: @object }, formats: [:html])
+json.body(render partial: 'skrw/shared/errors', locals: { object: @object }, formats: [:html])

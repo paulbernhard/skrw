@@ -5,6 +5,7 @@
   max-width: 400px;
 
   &__row {
+    margin-bottom: .25 * $line-height;
 
     &--inline {
       
@@ -41,6 +42,7 @@
   }
 
   &__controls {
+    @extend .s-controls;
 
     &--inline {
       display: inline-block !important;

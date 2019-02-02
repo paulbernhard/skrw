@@ -9,7 +9,8 @@ module Skrw
     # with the params :uploadable_type and :uploadable_id in params
     
     def index
-      @uploads = resource.where(uploadable_type: params[:uploadable_type], uploadable_id: params[:uploadable_id]).chronological
+      uploads = resource.where(uploadable_type: params[:uploadable_type], uploadable_id: params[:uploadable_id])
+      @uploads = uploads.chronological
     end
 
     # create upload and return upload.json or errors.json
@@ -19,8 +20,7 @@ module Skrw
       if @upload.save
         render_upload(status: :created)
       else
-        @object = @upload
-        render 'skrw/shared/errors', status: :unprocessable_entity
+        render_upload(status: :unprocessable_entity)
       end
     end
 
@@ -31,8 +31,7 @@ module Skrw
       if @upload.update_attributes(upload_params)
         render_upload(status: :ok)
       else
-        @object = @upload
-        render 'skrw/shared/errors', status: :unprocessable_entity
+        render_upload(status: :unprocessable_entity)
       end
     end
 

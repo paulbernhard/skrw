@@ -16,3 +16,7 @@
 .s-type--secondary {
   @include type-setting(.8);
 }
+
+.s-type--error {
+  color: red;
+}

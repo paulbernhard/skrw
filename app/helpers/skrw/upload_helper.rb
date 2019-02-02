@@ -50,21 +50,14 @@ module Skrw
 
     # uploads panel for uploads within scope of parent
     # to work with stimulus controller
+    # resource: Upload, scope: @event, uploads: @event.uploads.chronological
 
-    def uploads_panel(uploads: nil, parent: nil, **options)
-      # add class
-      options[:class] = options[:class] + " s-uploads"
+    def uploader(upload: nil)
+      render partial: 'skrw/uploads/form', upload: upload
+    end
 
-      # add data-tags for stimulus controller
-      data = {  'controller': 'uploads', 'uploads-index-url': uploads_path,
-                'uploads-uploadable-type': parent.nil? ? nil : parent.class.name,
-                'uploads-uploadable-id': parent.nil? ? nil : parent.id }
-
-      # merge data with options
-      options[:data] = options[:data] || {}
-      options[:data].merge!(data)
-
-      render partial: 'skrw/uploads/uploads', locals: { uploads: uploads, parent: parent, options: options }
+    def uploads_panel(resource: nil, scope: nil, uploads: nil)
+      render partial: 'skrw/uploads/uploads_panel', locals: { resource: resource, scope: scope, uploads: uploads }
     end
   end
 end

@@ -1,1 +1,3 @@
-json.html(render partial: 'skrw/uploads/uploads', locals: { uploads: @uploads, upload_form: 'skrw/uploads/form' }, formats: [:html])
+json.array! @uploads do |upload|
+  json.body(render(partial: 'skrw/uploads/form', locals: { upload: upload }, formats: [:html]))
+end

@@ -1,0 +1,29 @@
+<% scope = nil if local_assigns[:scope].nil? %>
+
+<div class="s-upload-panel s-module" 
+     data-controller="skrw--list"
+     data-skrw--list-refresh-url='<%= uploads_url(uploadable_type: "#{scope.nil? ? nil : scope.class.name}", uploadable_id: "#{scope.nil? ? nil : scope.id}") %>'>
+
+  <h3>Upload new file</h3>
+
+  <div class="s-upload-panel__adder" data-target="skrw--list.adder" data-action="ajax:success->skrw--list#add">
+    <%  upload = resource.new
+        upload.uploadable_type = scope.class.name unless scope.nil?
+        upload.uploadable_id = scope.id unless scope.nil? %>
+
+    <%= render 'skrw/uploads/form', upload: upload, refresh_after_upload: false %>
+  </div>
+
+  <h3>Uploads</h3>
+
+  <div class="s-upload-panel__list" data-target="skrw--list.list">
+
+    <% uploads.where.not(id: nil).each do |upload| %>
+      <div data-target="skrw--list.item">
+        <%= render 'skrw/uploads/form', upload: upload %>
+      </div>
+    <% end %>
+
+  </div>
+
+</div>
