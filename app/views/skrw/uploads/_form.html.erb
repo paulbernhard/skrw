@@ -1,35 +1,35 @@
 <% refresh_after_upload = true if local_assigns[:refresh_after_upload].nil? %>
 
 <%= form_with model: upload, local: false, class: 's-uploader s-form', builder: Skrw::FormBuilder,
-              data: { 'controller': 'skrw--uploader', 
-                      'action': "ajax:error->skrw--uploader#reload#{' ajax:success->skrw--uploader#reload' if refresh_after_upload}",
-                      'skrw--uploader-endpoint': '/uploads/xhr', 
-                      'skrw--uploader-allowed-file-types': Skrw.allowed_upload_mime_types.join(','),
-                      'skrw--uploader-max-file-size': Skrw.max_upload_file_size } do |form| %>
+              data: { 'controller': 'skrw-uploader', 
+                      'action': "ajax:error->skrw-uploader#reload#{' ajax:success->skrw-uploader#reload' if refresh_after_upload}",
+                      'skrw-uploader-endpoint': '/uploads/xhr', 
+                      'skrw-uploader-allowed-file-types': Skrw.allowed_upload_mime_types.join(','),
+                      'skrw-uploader-max-file-size': Skrw.max_upload_file_size } do |form| %>
 
   <%= form.errors %>
 
   <%= form.hidden_field(:uploadable_type, value: form.object.uploadable_type) %>
   <%= form.hidden_field(:uploadable_id, value: form.object.uploadable_id) %>
-  <%= form.hidden_field(:file, value: nil, data: { 'target': 'skrw--uploader.file' }) %>
+  <%= form.hidden_field(:file, value: nil, data: { 'target': 'skrw-uploader.file' }) %>
 
   <%= form.row do %>
     <div class="s-uploader__ui">
 
       <% if upload.file_type == 'image' %>
-        <div class="s-uploader__ui__drop" style="background-image: url(<%= upload.file_url(:small) %>);" data-target="skrw--uploader.drop"></div>
+        <div class="s-uploader__ui__drop" style="background-image: url(<%= upload.file_url(:small) %>);" data-target="skrw-uploader.drop"></div>
       <% else %>
-        <div class="s-uploader__ui__drop" data-target="skrw--uploader.drop"></div>
+        <div class="s-uploader__ui__drop" data-target="skrw-uploader.drop"></div>
       <% end %>
 
-      <div class="s-uploader__ui__progress" data-target="skrw--uploader.progress"></div>
-      <div class="s-uploader__ui__informer" data-target="skrw--uploader.informer"></div>
+      <div class="s-uploader__ui__progress" data-target="skrw-uploader.progress"></div>
+      <div class="s-uploader__ui__informer" data-target="skrw-uploader.informer"></div>
     </div>
   <% end %>
 
   <%= form.controls do %>
     <%= form.submit "#{form.object.new_record? ? 'Upload' : 'Save'}" %>
-    <%= link_to 'Delete', upload_path(form.object), method: :delete, remote: true, data: { 'action': 'ajax:success->skrw--list#remove' } if form.object.persisted? %>
+    <%= link_to 'Delete', upload_path(form.object), method: :delete, remote: true, data: { 'action': 'ajax:success->skrw-list#remove' } if form.object.persisted? %>
   <% end %>
 
 <% end %>
