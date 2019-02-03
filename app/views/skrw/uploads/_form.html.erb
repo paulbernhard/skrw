@@ -7,13 +7,11 @@
                       'skrw-uploader-allowed-file-types': Skrw.allowed_upload_mime_types.join(','),
                       'skrw-uploader-max-file-size': Skrw.max_upload_file_size } do |form| %>
 
-  <%= form.errors %>
-
   <%= form.hidden_field(:uploadable_type, value: form.object.uploadable_type) %>
   <%= form.hidden_field(:uploadable_id, value: form.object.uploadable_id) %>
   <%= form.hidden_field(:file, value: nil, data: { 'target': 'skrw-uploader.file' }) %>
 
-  <%= form.row do %>
+  <%= form.group(:file) do %>
     <div class="s-uploader__ui">
 
       <% if upload.file_type == 'image' %>
@@ -27,7 +25,7 @@
     </div>
   <% end %>
 
-  <%= form.controls do %>
+  <%= form.handlers do %>
     <%= form.submit "#{form.object.new_record? ? 'Upload' : 'Save'}" %>
     <%= link_to 'Delete', upload_path(form.object), method: :delete, remote: true, data: { 'action': 'ajax:success->skrw-list#remove' } if form.object.persisted? %>
   <% end %>
