@@ -12,9 +12,16 @@ module Skrw
       super(method, text, options)
     end
 
-    def control(method, field_type, **options)
+    def control_field(method, field_type, **options)
       insert_class("s-form__control", options)
       send(field_type, method, options)
+    end
+
+    def control_select(method, select_type, select_options: {}, **options)
+      insert_class("s-form__control s-form__control--select", options)
+      @template.content_tag(:div, options) do
+        send(select_type, method, select_options)
+      end
     end
 
     # group and label_group as wrappers for label and control
@@ -43,10 +50,24 @@ module Skrw
       end
     end
 
-    def label_group(method, field_type, text = nil, label_options: {}, field_options: {}, **options)
+    def label_group(method, text = nil, label_options: {}, **options, &block)
       group(method, options) do
         body = label(method, text, label_options)
-        body += control(method, field_type, field_options)
+        body += @template.capture(&block)
+      end
+    end
+
+    def label_field_group(method, field_type, text = nil, label_options: {}, field_options: {}, **options)
+      group(method, options) do
+        body = label(method, text, label_options)
+        body += control_field(method, field_type, field_options)
+      end
+    end
+
+    def label_select_group(method, select_type, text = nil, label_options: {}, select_options: {}, **options)
+      group(method, options) do
+        body = label(method, text, label_options)
+        body += control_select(method, select_type, select_options)
       end
     end
 
