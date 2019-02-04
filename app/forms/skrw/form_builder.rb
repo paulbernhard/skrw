@@ -2,41 +2,53 @@ module Skrw
   class FormBuilder < ActionView::Helpers::FormBuilder
     include ActionView::Helpers::TagHelper
 
-    # label and form controls
+    # fields and labels
     #
-    # form.label(:title, "Title", class: "form-label")
-    # form.control(:title, :text_field, class: "form-text-field")
+    # skrw wrappers for basic label and field methods
+    # available methods are:
+    # 
+    # label, text_field, email_field, password_field, date_field, 
+    # time_field, datetime_field, number_field, phone_field, 
+    # search_field, text_area
+
+    %w(text_field email_field password_field date_field time_field datetime_field number_field phone_field search_field text_area).each do |selector|
+      class_eval <<-RUBY_EVAL, __FILE__, __LINE__ + 1
+        def #{selector}(method, options = {})
+          super(method, insert_class('s-form__control', options))
+        end
+      RUBY_EVAL
+    end
+
+    %w(date_select time_select datetime_select).each do |selector|
+      class_eval <<-RUBY_EVAL, __FILE__, __LINE__ + 1
+        def #{selector}(method, options = {}, html_options = {})
+          @template.content_tag(:div, class: 's-form__control s-form__control--select') do
+            super(method, insert_class('s-form__control s-form__control--select', options), html_options)
+          end
+        end
+      RUBY_EVAL
+    end
 
     def label(method, text = nil, **options)
-      insert_class("s-form__label", options)
-      super(method, text, options)
+      super(method, text, insert_class("s-form__label", options))
     end
 
-    def control_field(method, field_type, **options)
-      insert_class("s-form__control", options)
-      send(field_type, method, options)
-    end
-
-    def control_select(method, select_type, select_options: {}, **options)
-      insert_class("s-form__control s-form__control--select", options)
-      @template.content_tag(:div, options) do
-        send(select_type, method, select_options)
-      end
-    end
-
-    # group and label_group as wrappers for label and control
-    # can show errors for the field if method is given and with_errors: true
-    # 
-    # the following two groups do the same
+    # group wrappers for label and control groups
+    # renders errors for respective field if method is given and with_errors = true (default)
+    # the following are identical
     #
-    # form.group(:title, with_errors: true) do
-    #   form.label(:title, "Title")
-    #   form.text_field(:title)
+    # group(:title, true, **options) do
+    #   label(:title, "Title")
+    #   text_field(:title)
     # end
     #
-    # form.label_group(:title, :text_field, "Title", with_errors: true)
+    # label_group(:title, "Title", true, label_options: {}, **options) do
+    #   text_field(:title)
+    # end
+    #
+    # label_text_field(:title, "Title", true, label_options: {}, field_options: {}, **options)
 
-    def group(method = nil, with_errors: true, **options, &block)
+    def group(method = nil, with_errors = true, **options, &block)
       insert_class("s-form__group", options)
 
       if method && with_errors && @object.errors.include?(method)
@@ -50,25 +62,24 @@ module Skrw
       end
     end
 
-    def label_group(method, text = nil, label_options: {}, **options, &block)
-      group(method, options) do
+    def label_group(method, text = nil, with_errors = true, label_options: {}, **options, &block)
+      group(method, with_errors, options) do
         body = label(method, text, label_options)
         body += @template.capture(&block)
+        body
       end
     end
 
-    def label_field_group(method, field_type, text = nil, label_options: {}, field_options: {}, **options)
-      group(method, options) do
-        body = label(method, text, label_options)
-        body += control_field(method, field_type, field_options)
-      end
-    end
-
-    def label_select_group(method, select_type, text = nil, label_options: {}, select_options: {}, **options)
-      group(method, options) do
-        body = label(method, text, label_options)
-        body += control_select(method, select_type, select_options)
-      end
+    %w(text_field email_field password_field date_field time_field datetime_field number_field phone_field search_field text_area).each do |selector|
+      class_eval <<-RUBY_EVAL, __FILE__, __LINE__ + 1
+        def label_#{selector}(method, text = nil, with_errors = true, label_options: {}, field_options: {}, **options)
+          # super(method, insert_class('s-form__control', options))
+          label_group(method, text, with_errors, label_options) do
+            selector = __method__.to_s.gsub('label_', '').to_sym
+            send(selector, method, field_options)
+          end
+        end
+      RUBY_EVAL
     end
 
     # error messages for the whole form object or a specific key
