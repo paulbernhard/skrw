@@ -2,7 +2,7 @@
 
 <%= form_with model: upload, local: false, class: 's-uploader s-form', builder: Skrw::FormBuilder,
               data: { 'controller': 'skrw-uploader', 
-                      'action': "ajax:error->skrw-uploader#reload#{' ajax:success->skrw-uploader#reload' if refresh_after_upload}",
+                      'action': "ajax:error->skrw-form#reload#{' ajax:success->skrw-uploader#reload' if refresh_after_upload}",
                       'skrw-uploader-endpoint': '/uploads/xhr', 
                       'skrw-uploader-allowed-file-types': Skrw.allowed_upload_mime_types.join(','),
                       'skrw-uploader-max-file-size': Skrw.max_upload_file_size } do |form| %>
