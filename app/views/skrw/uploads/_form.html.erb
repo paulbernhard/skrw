@@ -1,9 +1,11 @@
 <% refresh_after_upload = true if local_assigns[:refresh_after_upload].nil? %>
+<% max_number_of_files = 1 if local_assigns[:max_number_of_files].nil? %>
 
 <%= form_with model: upload, local: false, class: 's-uploader s-form', builder: Skrw::FormBuilder,
               data: { 'controller': 'skrw-uploader', 
                       'action': "ajax:error->skrw-form#reload#{' ajax:success->skrw-uploader#reload' if refresh_after_upload}",
                       'skrw-uploader-endpoint': '/uploads/xhr', 
+                      'skrw-uploader-max-number-of-files': max_number_of_files,
                       'skrw-uploader-allowed-file-types': Skrw.allowed_upload_mime_types.join(','),
                       'skrw-uploader-max-file-size': Skrw.max_upload_file_size } do |form| %>
 

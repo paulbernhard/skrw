@@ -1,4 +1,5 @@
 <% scope = nil if local_assigns[:scope].nil? %>
+<% max_number_of_files = 1 if local_assigns[:max_number_of_files].nil? %>
 
 <div class="s-upload-panel s-module" 
      data-controller="skrw-list"
@@ -11,7 +12,7 @@
         upload.uploadable_type = scope.class.name unless scope.nil?
         upload.uploadable_id = scope.id unless scope.nil? %>
 
-    <%= render 'skrw/uploads/form', upload: upload, refresh_after_upload: false %>
+    <%= render 'skrw/uploads/form', upload: upload, refresh_after_upload: false, max_number_of_files: max_number_of_files %>
   </div>
 
   <h3>Uploads</h3>

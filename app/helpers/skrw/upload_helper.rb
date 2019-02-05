@@ -56,8 +56,10 @@ module Skrw
       render partial: 'skrw/uploads/form', upload: upload
     end
 
-    def upload_panel(resource: nil, scope: nil, uploads: nil)
-      render partial: 'skrw/uploads/upload_panel', locals: { resource: resource, scope: scope, uploads: uploads }
+    def upload_panel(resource: nil, scope: nil, uploads: nil, max_number_of_files: nil)
+      render partial: 'skrw/uploads/upload_panel', 
+             locals: { resource: resource, scope: scope, uploads: uploads, 
+                       max_number_of_files: max_number_of_files }
     end
   end
 end
