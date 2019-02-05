@@ -20,13 +20,18 @@
         <div class="s-uploader__ui__drop" data-target="skrw-uploader.drop"></div>
       <% end %>
 
+      <div class="s-uploader__ui__files-list" data-target="skrw-uploader.files"></div>
       <div class="s-uploader__ui__progress" data-target="skrw-uploader.progress"></div>
       <div class="s-uploader__ui__informer" data-target="skrw-uploader.informer"></div>
     </div>
   <% end %>
 
   <%= form.handlers do %>
-    <%= form.submit "#{form.object.new_record? ? 'Upload' : 'Save'}" %>
+    <%= form.submit "#{form.object.new_record? ? 'Upload' : 'Save'}", 
+                    data: { 'target': 'skrw-uploader.submit', 'action': 'click->skrw-uploader#upload' } %>
+
+    <%= form.button 'Cancel', data: { 'target': 'skrw-uploader.cancel', 'action': 'click->skrw-uploader#cancel' } %>
+
     <%= link_to 'Delete', upload_path(form.object), method: :delete, remote: true, data: { 'action': 'ajax:success->skrw-list#remove' } if form.object.persisted? %>
   <% end %>
 
