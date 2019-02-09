@@ -3,6 +3,11 @@
   > * {
     display: inline-block;
     @extend .s-control;
+    margin-right: 4 * $unit;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
   }
 }
 
