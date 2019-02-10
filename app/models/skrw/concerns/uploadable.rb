@@ -17,7 +17,7 @@ module Skrw::Concerns::Uploadable
     scope :chrono, -> { order(created_at: :desc) }
 
     # validate presence of file
-    validates :file, presence: true
+    validates :file, presence: { message: "is needed for upload" }
   end
 
   def file_type
