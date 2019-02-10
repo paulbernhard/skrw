@@ -10,15 +10,6 @@
 </head>
 <body class="skrw">
 
-  <% content_for(:skrw_page_controls_primary) do %>
-    <%= link_to "Dashboard Control (Primary)", root_path %>
-  <% end %>
-
-  <% content_for(:skrw_page_controls_secondary) do %>
-    <%= link_to "Page Control (Secondary)", root_path %>
-    <%= link_to "Special Page Control (Secondary)", root_path if admin_signed_in? %>
-  <% end %>
-
   <%= user_bar %>
   <%= yield %>
 

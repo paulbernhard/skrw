@@ -1,31 +1,27 @@
-<div class="s-session__user">
+<% if user_signed_in? %>
 
-  <% if user_signed_in? %>
-  
-    <%= current_user.email %>
-    <%= link_to "Logout", skrw.destroy_user_session_path, method: :delete %>  
-  
-  <% else %>
+  <%= current_user.email %>
+  <%= link_to "Logout", skrw.destroy_user_session_path, method: :delete %>  
 
-    <%= form_with(model: resource, url: user_session_path, 
-                  local: true, class: "skrwf", builder: Skrw::FormBuilder) do |form| %>
+<% else %>
 
-        <%= form.errors %>
+  <%= form_with(model: resource, url: user_session_path, 
+                local: true, class: "skrwf", builder: Skrw::FormBuilder) do |form| %>
 
-        <%= form.label_email_field(:email, "Email", field_options: { autofocus: true, autocomplete: "email" }) %>
+      <%= form.errors %>
 
-        <%= form.label_password_field(:password, "Password", field_options: { autocomplete: "current-password" }) %>
+      <%= form.label_email_field(:email, "Email", field_options: { autofocus: true, autocomplete: "email" }) %>
 
-        <%= form.label_group(:remember_me, 'Remember me?') do %>
-          <%= form.check_box :remember_me %>
-        <% end %>
+      <%= form.label_password_field(:password, "Password", field_options: { autocomplete: "current-password" }) %>
 
-        <%= form.handlers do %>
-          <%= form.submit "Login" %>
-        <% end %>
-
+      <%= form.label_group(:remember_me, 'Remember me?') do %>
+        <%= form.check_box :remember_me %>
       <% end %>
 
-  <% end %>
+      <%= form.handlers do %>
+        <%= form.submit "Login" %>
+      <% end %>
 
-</div>
+    <% end %>
+
+<% end %>

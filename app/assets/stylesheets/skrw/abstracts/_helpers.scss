@@ -10,7 +10,15 @@
   }
 
   @else if $media == small-screen {
-    @media only screen and (min-width: $break-small + 1) { @content; }
+    @media only screen and (min-width: $break-small + 1) and (max-width: $break-medium) { @content; }
+  }
+
+  @else if $media == medium-screen {
+    @media only screen and (min-width: $break-medium + 1) and (max-width: $break-large) { @content; }
+  }
+
+  @else if $media == large-screen {
+    @media only screen and (min-width: $break-large + 1) { @content; }
   }
 }
 

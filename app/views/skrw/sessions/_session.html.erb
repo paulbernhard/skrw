@@ -1,11 +1,14 @@
 <div class="skrw s-session<%= ' s-session--has-controls' if content_for?(:skrw_page_controls_primary) || content_for?(:skrw_page_controls_secondary) %>">
   <%= render 'skrw/sessions/flashes' %>
 
-  <div class="s-session__primary">
-    <%= render 'skrw/sessions/user' %>
+  <div class="s-session__primary s-grid">
+
+    <div class="s-session__user s-col s-col--6">
+      <%= render 'skrw/sessions/user' %>
+    </div>
     
     <% if content_for?(:skrw_page_controls_primary) %>
-      <div class="s-session__primary__controls">
+      <div class="s-session__primary__controls s-col s-col--6 s-col--end">
         <%= content_for(:skrw_page_controls_primary) %>
       </div>
     <% end %>

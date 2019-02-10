@@ -39,6 +39,13 @@
         }
       }
     }
+
+    &--with-errors {
+
+      .s-form__control {
+        border: 1px solid $error-color !important;
+      }
+    }
   }
 
   &__controls {
@@ -50,6 +57,6 @@
   }
 
   &__errors {
-    // form errors …
+    @extend .s-type--error;
   }
 }
