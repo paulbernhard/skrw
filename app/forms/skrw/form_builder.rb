@@ -22,11 +22,15 @@ module Skrw
     %w(date_select time_select datetime_select).each do |selector|
       class_eval <<-RUBY_EVAL, __FILE__, __LINE__ + 1
         def #{selector}(method, options = {}, html_options = {})
-          @template.content_tag(:div, class: 's-form__control s-form__control--select') do
-            super(method, insert_class('s-form__control s-form__control--select', options), html_options)
+          @template.content_tag(:div, class: 's-form__select-group') do
+            super(method, options, insert_class('s-form__control', html_options))
           end
         end
       RUBY_EVAL
+    end
+
+    def select(method, choices = nil, options = {}, html_options = {})
+      super(method, choices, options, insert_class('s-form__control', html_options))
     end
 
     def label(method, text = nil, **options)
