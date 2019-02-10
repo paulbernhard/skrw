@@ -10,7 +10,7 @@ module Skrw
     
     def index
       uploads = resource.where(uploadable_type: params[:uploadable_type], uploadable_id: params[:uploadable_id])
-      @uploads = uploads.chronological
+      @uploads = uploads.chrono
     end
 
     # create upload and return upload.json or errors.json
@@ -40,6 +40,8 @@ module Skrw
     def destroy
       @upload = resource.find(params[:id])
       if @upload.destroy
+        # return form with fresh resource
+        @upload = resource.new(uploadable_type: @upload.uploadable_type, uploadable_id: @upload.uploadable_id)
         render_upload(status: :ok)
       end
     end
