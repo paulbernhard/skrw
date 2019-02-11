@@ -6,7 +6,7 @@ require "skrw/version"
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
   spec.name        = "skrw"
-  spec.version     = '0.0.1'
+  spec.version     = '1.1.1'
   spec.authors     = ["Paul Bernhard"]
   spec.email       = ["mail@pbernhard.com"]
   # spec.homepage    = "N/A"
