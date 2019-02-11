@@ -27,20 +27,18 @@ module Skrw
       output = io
 
       # process according to mime-type
-      mime_type = io.mime_type.split('/')[0]
-
-      if mime_type == 'image' && Skrw.image_processor
+      if io.mime_type.split('/')[0] == 'image' && Skrw.image_processor
 
         # download and process image
         io.download do |file|
-          output = Skrw::Processors::Image.process(file)
+          output = Skrw::Processors::Image.process(file, io.mime_type)
         end
 
-      elsif mime_type == 'video' && Skrw.video_processor
+      elsif io.mime_type.split('/')[0] == 'video' && Skrw.video_processor
 
         # download and process video
         io.download do |file|
-          output = Skrw::Processors::Video.process(file)
+          output = Skrw::Processors::Video.process(file, io.mime_type)
         end
       end
 

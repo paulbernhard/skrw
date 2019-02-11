@@ -2,7 +2,7 @@
 
 module Skrw::Processors::Video
   
-  def self.process(file)
+  def self.process(file, mime_type = nil)
     # TODO setup video processor
   end
 end
