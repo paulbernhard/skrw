@@ -12,8 +12,6 @@ module Skrw::Concerns::Uploadable
     before_save :update_promoted, :update_mime_type
 
     # scopes
-    scope :images, -> { where(file_type: 'image') }
-    scope :videos, -> { where(file_type: 'video') }
     scope :chrono, -> { order(created_at: :desc) }
 
     # validate presence of file
