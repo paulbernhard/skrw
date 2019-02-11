@@ -1,3 +1,6 @@
+# processing images has to be enabled in skrw.rb initializer
+# config.image_processor = true
+
 require 'image_processing/vips'
 
 module Skrw::Processors::Image
