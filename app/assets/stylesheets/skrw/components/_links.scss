@@ -25,4 +25,12 @@
   &:hover {
     color: $link-hover-color;
   }
+
+  &--button {
+    border: 1px solid $control-color;
+
+    &:hover {
+      border-color: $link-hover-color;
+    }
+  }
 }

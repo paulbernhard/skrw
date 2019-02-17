@@ -3,6 +3,23 @@
   font-size: 1.05em;
   line-height: $line-height;
 
+  h1, h2, h3 {
+    font-weight: normal;
+  }
+
+  h1 {
+    @include type-setting(1.5);
+  }
+
+  h2 {
+    @include type-setting(1.2);
+  }
+
+  h3 {
+    @include type-setting(1);
+    text-transform: uppercase
+  }
+
   em {
     font-style: italic;
   }

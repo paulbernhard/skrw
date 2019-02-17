@@ -2,7 +2,7 @@
 
 .s-form {
   margin-bottom: $line-height;
-  max-width: 400px;
+  // max-width: 400px;
 
   &__row {
     margin-bottom: .25 * $line-height;
@@ -58,5 +58,14 @@
 
   &__errors {
     @extend .s-type--error;
+  }
+}
+
+.s-form__select-group {
+  display: flex;
+  flex-flow: row nowrap;
+
+  @include respond-to(handheld) {
+    flex-flow: row wrap;
   }
 }

@@ -14,6 +14,12 @@
   &--center-items {
     justify-items: center;
   }
+
+  &--align-start { align-items: start; }
+  &--align-center { align-items: center; }
+  &--align-end { align-items: end; }
+
+  &--flow-dense { grid-auto-flow: dense; }
 }
 
 .s-col {
@@ -36,6 +42,9 @@
   .s-col--#{$i} {
     grid-column-end: span $i;
   }
+}
+
+@for $i from 1 through $grid-column-count {
 
   @include respond-to(handheld) {
     .s-col--xs-#{$i} {
