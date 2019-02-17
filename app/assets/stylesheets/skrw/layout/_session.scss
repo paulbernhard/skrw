@@ -5,12 +5,44 @@
   left: 0;
   width: 100%;
   padding: $unit (2 * $unit);
+  padding-left: 2 * $line-height;
   background: yellow;
+
+  &.s-session--minified {
+    // @include prefix((transform: translateY(100%)));
+
+    .s-session__secondary {
+      display: none;
+    }
+  }
 }
 
 .s-session__primary__controls,
 .s-session__secondary__controls {
   @extend .s-controls;
+}
+
+.s-session__toggler {
+  position: absolute;
+  top: $unit;
+  left: 2 * $unit;
+  width: $line-height;
+  height: $line-height;
+  border-radius: 50%;
+  background: red;
+  cursor: pointer;
+
+  &:before {
+    content: "X";
+    display: block;
+    width: 100%;
+    text-align: center;
+    line-height: $line-height;
+  }
+
+  .s-session--minified &:before {
+    content: "+";
+  }
 }
 
 .s-flash {

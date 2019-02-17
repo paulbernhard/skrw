@@ -41,14 +41,7 @@
     }
 
     &__informer {
-      // position: relative;
-      // z-index: 1;
-      // bottom: 0;
-      // left: 0;
-      // width: 100%;
-      // padding: 2 * $unit; 
       @extend .s-text--secondary;
-      @extend .s-text--error;
 
       p {
         margin: 0;

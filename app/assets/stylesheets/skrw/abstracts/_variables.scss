@@ -25,5 +25,5 @@ $width-s: $break-small;
 $width-m: 600px;
 
 // grid
-$grid-column-gap: $unit;
+$grid-column-gap: 5 * $unit;
 $grid-column-count: 12;

@@ -1,4 +1,4 @@
-<div class="skrw s-session<%= ' s-session--has-controls' if content_for?(:skrw_page_controls_primary) || content_for?(:skrw_page_controls_secondary) %>" data-controller="skrw-session">
+<div class="skrw s-session<%= ' s-session--has-controls' if content_for?(:skrw_page_controls_primary) || content_for?(:skrw_page_controls_secondary) %>" data-controller="skrw-session" data-skrw-session-minified="true">
 
   <%= render 'skrw/shared/flash' if flash.any? %>
 
@@ -16,6 +16,8 @@
   </div>
 
   <% if content_for?(:skrw_page_controls_secondary) %>
+    <div class="s-session__toggler" data-target="skrw-session.toggler" data-action="click->skrw-session#toggle"></div>
+    
     <div class="s-session__secondary">
       <div class="s-session__secondary-controls">
         <%= content_for(:skrw_page_controls_secondary) %>
