@@ -7,7 +7,7 @@
 
   <h3>Upload new file</h3>
 
-  <div class="s-upload-panel__adder" data-controller="skrw-form" data-action="ajax:success->skrw-list#add">
+  <div class="s-upload-panel__adder" data-target="skrw-list.adder" data-action="ajax:success->skrw-list#add">
     <%  upload = resource.new
         upload.uploadable_type = scope.class.name unless scope.nil?
         upload.uploadable_id = scope.id unless scope.nil? %>

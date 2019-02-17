@@ -1,5 +1,6 @@
-<div class="skrw s-session<%= ' s-session--has-controls' if content_for?(:skrw_page_controls_primary) || content_for?(:skrw_page_controls_secondary) %>">
-  <%= render 'skrw/sessions/flashes' %>
+<div class="skrw s-session<%= ' s-session--has-controls' if content_for?(:skrw_page_controls_primary) || content_for?(:skrw_page_controls_secondary) %>" data-controller="skrw-session">
+
+  <%= render 'skrw/shared/flash' if flash.any? %>
 
   <div class="s-session__primary s-grid">
 

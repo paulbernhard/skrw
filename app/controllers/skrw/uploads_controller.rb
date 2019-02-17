@@ -18,8 +18,10 @@ module Skrw
     def create
       @upload = resource.new(upload_params)
       if @upload.save
+        flash.now[:notice] = "file upload successful"
         render_upload(status: :created)
       else
+        flash.now[:error] = "file upload failed"
         render_upload(status: :unprocessable_entity)
       end
     end
@@ -29,8 +31,10 @@ module Skrw
     def update
       @upload = resource.find(params[:id])
       if @upload.update_attributes(upload_params)
-        render_upload(status: :ok)
+        flash.now[:notice] = "file upload update successful"
+        render_upload(status: :created)
       else
+        flash.now[:error] = "file upload update failed"
         render_upload(status: :unprocessable_entity)
       end
     end
@@ -53,7 +57,7 @@ module Skrw
     end
 
     def render_upload(status: nil)
-      render 'upload', status: status
+      render 'form', status: status
     end
 
     private

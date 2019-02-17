@@ -47,8 +47,8 @@
       // left: 0;
       // width: 100%;
       // padding: 2 * $unit; 
-      @extend .s-type--secondary;
-      @extend .s-type--error;
+      @extend .s-text--secondary;
+      @extend .s-text--error;
 
       p {
         margin: 0;

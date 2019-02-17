@@ -13,7 +13,7 @@
 
 .s-control {
   padding: 0 .2em;
-  @extend .s-type--secondary;
+  @extend .s-text--secondary;
   color: $control-color;
   text-decoration: none;
   cursor: pointer;

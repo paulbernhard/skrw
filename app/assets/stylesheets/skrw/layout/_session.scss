@@ -13,8 +13,31 @@
   @extend .s-controls;
 }
 
-.s-flashes {
-  margin-bottom: .25 * $line-height;
+.s-flash {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 $unit;
+  pointer-events: none;
+
+  &__item {
+    background: yellow;
+
+    &:before {
+      content: '! ';
+    }
+  }
+
+  &__item.error {
+    @extend .s-text--error;
+    background: $error-color;
+
+    &:before {
+      content: '!! ';
+    }
+  }
 }
 
 .s-flash {

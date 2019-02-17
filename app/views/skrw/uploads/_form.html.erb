@@ -3,7 +3,7 @@
 
 <%= form_with model: upload, local: false, class: 's-uploader s-form', builder: Skrw::FormBuilder,
               data: { 'controller': 'skrw-uploader', 
-                      'action': "ajax:error->skrw-form#reload#{' ajax:success->skrw-uploader#reload' if refresh_after_upload}",
+                      'action': "ajax:error->skrw-form#reload#{' ajax:success->skrw-form#reload' if refresh_after_upload}",
                       'skrw-uploader-endpoint': '/uploads/xhr', 
                       'skrw-uploader-max-number-of-files': max_number_of_files,
                       'skrw-uploader-allowed-file-types': Skrw.allowed_upload_mime_types.join(','),
@@ -18,6 +18,8 @@
 
       <% if upload.file_type == 'image' %>
         <div class="s-uploader__ui__drop" style="background-image: url(<%= upload.file_url(:small) %>);" data-target="skrw-uploader.drop"></div>
+      <% elsif upload.file_type == 'video' %>
+        <div class="s-uploader__ui__drop s-uploader__ui__drop--video" data-filename="<%= upload.file.original_filename %>" data-target="skrw-uploader.drop">Video: <%= upload.file.original_filename %></div>
       <% else %>
         <div class="s-uploader__ui__drop" data-target="skrw-uploader.drop"></div>
       <% end %>
