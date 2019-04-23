@@ -31,10 +31,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'devise', '~> 4.5' # authentication of user
 
-  spec.add_dependency 'shrine', '~> 2.14' # file uploading
-  spec.add_dependency 'shrine-memory', '~> 0.3.0' # in-memory storage for faster upload tests
-  spec.add_dependency 'image_processing', '~> 1.7', '>= 1.7.1' # image processing for uploads
-  spec.add_dependency 'mime-types', '~> 3.2', '>= 3.2.2' # better mime-type determination based on file content
-
   spec.add_development_dependency 'pg'
 end

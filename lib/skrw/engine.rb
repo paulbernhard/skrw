@@ -13,7 +13,6 @@ module Skrw
         # include view helpers
         helper Skrw::ApplicationHelper
         helper Skrw::UserHelper
-        helper Skrw::UploadHelper
       end
     end
   end
