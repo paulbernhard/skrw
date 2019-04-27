@@ -4,7 +4,6 @@ $gutter: 10 * $unit;
 
 // font
 $font-family: Courier;
-$base-font-size: 1.05em;
 $font-size: 1.05em;
 $line-height: 1.2em;
 
@@ -16,13 +15,4 @@ $error-color: red;
 
 // breakpoints
 $break-small: 375px;
-$break-medium: 1200px;
-$break-large: 1900px;
-
-// widths
-$width-s: $break-small;
-$width-m: 600px;
-
-// grid
-$grid-column-gap: $unit;
-$grid-column-count: 12;
+$break-large: 1200px;

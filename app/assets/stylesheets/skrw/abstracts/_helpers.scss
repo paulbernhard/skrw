@@ -9,14 +9,6 @@
     @media only screen and (max-width: $break-small) { @content; }
   }
 
-  @else if $media == small-screen {
-    @media only screen and (min-width: $break-small + 1) and (max-width: $break-medium) { @content; }
-  }
-
-  @else if $media == medium-screen {
-    @media only screen and (min-width: $break-medium + 1) and (max-width: $break-large) { @content; }
-  }
-
   @else if $media == large-screen {
     @media only screen and (min-width: $break-large + 1) { @content; }
   }
@@ -24,7 +16,7 @@
 
 // mixin to prefix (multiple) properties
 // Syntax   @include prefix((
-//            column-count: 3, 
+//            column-count: 3,
 //            column-gap: 1em
 //          ), moz webkit);
 

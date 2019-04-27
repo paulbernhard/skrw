@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'jbuilder', '~> 2.8' # jbuilder for JSON responses
 
   spec.add_dependency 'devise', '~> 4.5' # authentication of user
+  spec.add_dependency 'simple_form', '~> 4.1' # forms
 
   spec.add_development_dependency 'pg'
 end

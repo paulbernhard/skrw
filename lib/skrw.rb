@@ -1,5 +1,6 @@
 require 'skrw/engine'
 require 'devise'
+require 'simple_form'
 require 'jbuilder'
 
 module Skrw
