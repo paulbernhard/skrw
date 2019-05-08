@@ -1,0 +1,29 @@
+.skrw-list {
+  @extend .skrw;
+  padding-left: 1em;
+
+  li {
+    margin-bottom: $line-height;
+  }
+
+  &--lines {
+
+    li {
+      position: relative;
+
+      &:after {
+        content: "";
+        position: absolute;
+        bottom: -.5 * $line-height;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: $font-color;
+      }
+
+      &:last-child:after {
+        display: none;
+      }
+    }
+  }
+}

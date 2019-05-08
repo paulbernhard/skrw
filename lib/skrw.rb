@@ -1,7 +1,7 @@
-require 'skrw/engine'
-require 'devise'
-require 'simple_form'
-require 'jbuilder'
+require "skrw/engine"
+require "devise"
+require "simple_form"
+require "jbuilder"
 
 module Skrw
 
@@ -12,15 +12,19 @@ module Skrw
 
     # mailer sender for password recovery
     mattr_accessor :mailer_sender
-    self.mailer_sender = 'skrw@mail.com'
+    self.mailer_sender = "skrw@mail.com"
 
     # path after sign in
     mattr_accessor :after_sign_in_path
-    self.after_sign_in_path = '/'
+    self.after_sign_in_path = "/"
 
     # path after sign out
     mattr_accessor :after_sign_out_path
-    self.after_sign_out_path = '/'
+    self.after_sign_out_path = "/"
+
+    # simple form class
+    mattr_accessor :form_class
+    self.form_class = "skrw-form"
   end
 
   # setup method for configuration

@@ -1,0 +1,117 @@
+.skrw-form {
+  @extend .skrw;
+}
+
+.skrw-form--small {
+  max-width: $break-small;
+}
+
+.skrw-form--medium {
+  max-width: 1.5 * $break-small;
+}
+
+.skrw-form--large {
+  max-width: 100%;
+}
+
+@mixin skrw-form--row {
+  display: flex;
+  flex-flow: row nowrap;
+
+  > * {
+    flex-grow: 1;
+    margin-right: $gutter;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.skrw-form--row {
+  @include skrw-form--row;
+}
+
+.skrw-form--row--min-md {
+  @include respond-to(medium-screen) {
+    @include skrw-form--row;
+  }
+}
+
+.skrw-form__control {
+  margin-bottom: .5 * $line-height;
+
+  // general labels, inputs, etc
+  label, input, textarea, select {
+    display: block;
+    width: 100%;
+  }
+
+  // checkboxes
+  label.checkbox {
+    display: inline;
+    width: auto;
+
+    input {
+      display: inline;
+      width: auto;
+      margin: 0 $unit 0 0;
+    }
+  }
+
+  // textareas
+  textarea {
+    resize: vertical;
+  }
+}
+
+.skrw-form__control--buttons {
+
+  input, a {
+    display: inline;
+    width: auto;
+    margin-right: $unit;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+@mixin skrw-form__control--row {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+
+  label {
+    width: auto;
+    margin-right: $unit;
+  }
+
+  label.checkbox {
+    width: 100%;
+  }
+
+  input, textarea, select {
+    flex-grow: 1;
+    width: auto;
+  }
+
+  &.skrw-form__control--buttons {
+
+    input {
+      flex-grow: 0;
+    }
+  }
+}
+
+.skrw-form__control--row,
+.skrw-form--row .skrw-form__control {
+  @include skrw-form__control--row;
+}
+
+.skrw-form--row--min-md .skrw-form__control {
+  @include respond-to(medium-screen) {
+    @include skrw-form__control--row;
+  }
+}

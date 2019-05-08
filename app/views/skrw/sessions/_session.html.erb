@@ -1,24 +1,13 @@
-<div class="skrw s-session<%= ' s-session--has-controls' if content_for?(:skrw_page_controls_primary) || content_for?(:skrw_page_controls_secondary) %>">
-  <%= render 'skrw/sessions/flashes' %>
+<div class="skrw-session<%= ' skrw-session--with-controls' if content_for?(:skrw_controls) %>">
+  <%= render "skrw/sessions/flashes" %>
 
-  <div class="s-session__primary s-grid">
-
-    <div class="s-session__user s-col s-col--6">
-      <%= render 'skrw/sessions/user' %>
-    </div>
-    
-    <% if content_for?(:skrw_page_controls_primary) %>
-      <div class="s-session__primary__controls s-col s-col--6 s-col--end">
-        <%= content_for(:skrw_page_controls_primary) %>
-      </div>
-    <% end %>
+  <div class="skrw-session__user">
+    <%= render "skrw/sessions/user" %>
   </div>
-
-  <% if content_for?(:skrw_page_controls_secondary) %>
-    <div class="s-session__secondary">
-      <div class="s-session__secondary-controls">
-        <%= content_for(:skrw_page_controls_secondary) %>
-      </div>
+  
+  <% if content_for?(:skrw_controls) %>
+    <div class="skrw-session__controls">
+      <%= yield :skrw_controls %>
     </div>
   <% end %>
 </div>

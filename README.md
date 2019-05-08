@@ -57,6 +57,12 @@ $ gem install skrw
     end
   end
   ```
+
+- JS functionalities (webpacker required!)
+  ```bash
+  $ yarn add @yaireo/tagify
+  ```
+  copy the `app/javascript/controllers/skrw` directory to your `app/javascript/controllers` directory
 - Devise helpers like `user_signed_in?` will be accessible / additionally there is `admin_signed_in?`
 - create a user in console `Skrw::User.create!(email: 'mail@mail.com', passworD: 'password', password_confirmation: 'password')` (temporary until registration is finished)
 - testing:

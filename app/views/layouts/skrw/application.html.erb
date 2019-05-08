@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Skrw</title>
+  <title><%= content_for?(:skrw_title) ? content_for(:skrw_title) : "Skrw" %></title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
