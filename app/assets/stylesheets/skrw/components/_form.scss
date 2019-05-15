@@ -1,53 +1,23 @@
+// form
+
 .skrw-form {
   @extend .skrw;
+  padding: 0 $unit;
+
+  &--small { max-width: $break-small; }
+  &--medium { max-width: $break-medium; }
 }
 
-.skrw-form--small {
-  max-width: $break-small;
-}
-
-.skrw-form--medium {
-  max-width: 1.5 * $break-small;
-}
-
-.skrw-form--large {
-  max-width: 100%;
-}
-
-@mixin skrw-form--row {
-  display: flex;
-  flex-flow: row nowrap;
-
-  > * {
-    flex-grow: 1;
-    margin-right: $gutter;
-
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-}
-
-.skrw-form--row {
-  @include skrw-form--row;
-}
-
-.skrw-form--row--min-md {
-  @include respond-to(medium-screen) {
-    @include skrw-form--row;
-  }
-}
+// form controls (inputs, labels, etc)
 
 .skrw-form__control {
   margin-bottom: .5 * $line-height;
 
-  // general labels, inputs, etc
   label, input, textarea, select {
     display: block;
     width: 100%;
   }
 
-  // checkboxes
   label.checkbox {
     display: inline;
     width: auto;
@@ -59,59 +29,103 @@
     }
   }
 
-  // textareas
-  textarea {
-    resize: vertical;
+  input:not([type="submit"]), textarea {
+    padding: 0.2rem;
+    border: 1px solid $font-color;
   }
-}
 
-.skrw-form__control--buttons {
+  textarea { resize: vertical; }
 
-  input, a {
-    display: inline;
-    width: auto;
-    margin-right: $unit;
+  input[type="submit"] { border: none; }
 
-    &:last-child {
-      margin-right: 0;
+  &--buttons {
+    @extend .skrw-form__control--row;
+    @extend .skrw-controls;
+
+    > * {
+      width: auto !important;
+    }
+  }
+
+  &--row {
+    @include respond-to(small) {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: flex-start;
+
+      label {
+        flex-grow: 0;
+        width: auto;
+      }
+
+      input:not([type="submit"]), textarea, select {
+        flex-grow: 1;
+        width: auto;
+      }
+
+      > * {
+        margin-right: .5 * $gutter;
+
+        &:last-child { margin-right: 0; }
+      }
+    }
+  }
+
+  &--with-errors {
+    input, textarea { border: 1px solid $error-color;}
+  }
+
+  &.date {
+
+    select {
+      display: inline-block;
+      width: auto;
     }
   }
 }
 
-@mixin skrw-form__control--row {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: flex-start;
+// nested forms & fields
 
-  label {
-    width: auto;
-    margin-right: $unit;
-  }
+.skrw-form__nested-fields {
+  margin-bottom: $line-height;
 
-  label.checkbox {
-    width: 100%;
-  }
+  &__field {
+    position: relative;
+    margin-bottom: $line-height;
 
-  input, textarea, select {
-    flex-grow: 1;
-    width: auto;
-  }
+    @include respond-to(medium) {
+      padding-left: 10 * $unit;
+    }
 
-  &.skrw-form__control--buttons {
+    &:before {
+      content: "===";
+      display: block;
 
-    input {
-      flex-grow: 0;
+      @include respond-to(medium) {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    }
+
+    &:after {
+      content: "----";
+      display: block;
     }
   }
+
+  &__controls { @extend .skrw-controls; }
 }
 
-.skrw-form__control--row,
-.skrw-form--row .skrw-form__control {
-  @include skrw-form__control--row;
-}
 
-.skrw-form--row--min-md .skrw-form__control {
-  @include respond-to(medium-screen) {
-    @include skrw-form__control--row;
+// errors & hints
+
+.skrw-form {
+  .hint, .error {
+    display: block;
+    @extend .skrw-text--secondary;
   }
+
+  .hint { color: lighten($font-color, 50%); }
+  .error { color: $error-color; }
 }

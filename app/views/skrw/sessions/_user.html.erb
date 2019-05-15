@@ -5,15 +5,15 @@
 
 <% else %>
 
-  <%= simple_form_for resource, url: user_session_path, html: { class: "skrw-form skrw-form--row--min-md" } do |f| %>
+  <%= skrw_form_for resource, url: user_session_path, html: { class: "skrw-form skrw-grid" } do |f| %>
 
-    <%= f.input :email, label: "email", wrapper_html: { class: "skrw-form__control--row" } %>
-    <%= f.input :password, label: "password", wrapper_html: { class: "skrw-form__control--row" } %>
-    <%= f.input :remember_me, label: "remember me?", as: :boolean, wrapper_html: { class: "skrw-form__control--row" } %>
+    <%= f.input :email, label: "email", wrapper_html: { class: "skrw-form__control--row skrw-grid__col--12 skrw-grid__col--s-3" } %>
+    <%= f.input :password, label: "password", wrapper_html: { class: "skrw-form__control--row skrw-grid__col--12 skrw-grid__col--s-4" } %>
+    <%= f.input :remember_me, label: "remember me?", as: :boolean, wrapper_html: { class: "skrw-form__control--row skrw-grid__col--12 skrw-grid__col--s-3" } %>
 
-    <div class="skrw-form__control skrw-form__control--buttons">
+    <%= f.buttons class: "skrw-form__control--row skrw-grid__col--12 skrw-grid__col--s-2 skrw-grid__col--justify-center" do %>
       <%= f.button :submit, "Login" %>
-    </div>
+    <% end %>
 
   <% end %>
 

@@ -4,17 +4,18 @@ $gutter: 5 * $unit;
 
 // font
 $font-family: Courier;
-$font-size: 1.05em;
+$font-size: 1em;
 $line-height: 1.2em;
 
 // colors
 $font-color: black;
 $link-color: black;
-$link-hover-color: black;
-$control-color: blue;
+$link-hover-color: blue;
+$control-color: lightgrey;
+$control-hover-color: lightgrey;
 $error-color: red;
 
 // breakpoints
-$break-small: 375px;
-$break-medium: 800px;
-$break-large: 1200px;
+$break-small: 640px;
+$break-medium: 1000px;
+$break-large: 1440px;

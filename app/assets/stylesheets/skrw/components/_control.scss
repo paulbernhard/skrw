@@ -1,7 +1,28 @@
 .skrw-controls {
   @extend .skrw;
+
+  > * {
+    @extend .skrw-control;
+  }
 }
 
 .skrw-control {
   @extend .skrw;
+  font-family: inherit;
+  color: $link-hover-color;
+  text-decoration: none;
+  padding: .05em .25em;
+  // border: 1px solid $font-color;
+  background: $control-color;
+  @include bracket("(", ")");
+
+  &:hover {
+    cursor: pointer;
+    color: $link-color;
+  }
+
+  &--inline:before,
+  &--inline:after {
+    content: "";
+  }
 }

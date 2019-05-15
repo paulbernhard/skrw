@@ -1,19 +1,18 @@
-// mixin for media querries (handheld, small-screen)
-// Syntax   @include respond-to(handheld) {
-//            width: 100%;
-//          }
-
 @mixin respond-to($media) {
 
-  @if $media == handheld {
+  @if $media == mobile {
     @media only screen and (max-width: $break-small) { @content; }
   }
 
-  @else if $media == medium-screen {
+  @else if $media == small {
+    @media only screen and (min-width: $break-small + 1) { @content; }
+  }
+
+  @else if $media == medium {
     @media only screen and (min-width: $break-medium + 1) { @content; }
   }
 
-  @else if $media == large-screen {
+  @else if $media == large {
     @media only screen and (min-width: $break-large + 1) { @content; }
   }
 }
@@ -40,24 +39,28 @@
   line-height: $line-height-factor * $line-height;
 }
 
-@mixin content-brackets($before, $after) {
-  &:before {
-    content: $before;
-    margin-right: .1em;
-  }
-
-  &:after {
-    content: $after;
-    margin-left: .1em;
-  }
-}
-
 // clearfix placeholder
-
-%clearfix {
+@mixin clearfix {
   &:after {
     content: "";
     display: table;
     clear: both;
+  }
+}
+
+@mixin bracket($before: false, $after: false) {
+
+  @if $before != false {
+    &:before {
+      content: $before;
+      padding-right: .5 * $unit;
+    }
+  }
+
+  @if $after != false {
+    &:after {
+      content: $after;
+      padding-left: .5 * $unit;
+    }
   }
 }

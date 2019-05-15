@@ -1,0 +1,53 @@
+$grid-prefix: "skrw-grid";
+$grid-column-count: 12;
+
+.#{$grid-prefix} {
+  display: grid;
+  grid-template-columns: repeat($grid-column-count, 1fr);
+  grid-column-gap: $gutter;
+
+  &--inline { display: inline-grid; }
+
+  &--justify-stretch { justify-items: stretch; }
+  &--justify-start { justify-items: start; }
+  &--justify-center { justify-items: center; }
+  &--justify-end { justify-items: end; }
+
+  &--align-start { align-items: start; }
+  &--align-center { align-items: center; }
+  &--align-end { align-items: end; }
+  &--align-stretch { align-items: stretch; }
+
+  &__col {
+
+    &--justify-stretch { justify-self: stretch; }
+    &--justify-start { justify-self: start; }
+    &--justify-center { justify-self: center; }
+    &--justify-end { justify-self: end; }
+  }
+}
+
+// set base column classes
+@for $i from 1 through $grid-column-count {
+  .#{$grid-prefix}__col--#{$i} { grid-column-end: span $i; }
+}
+
+// set responsive column classes
+@for $i from 1 through $grid-column-count {
+
+  @include respond-to(mobile) {
+    .#{$grid-prefix}__col--xs-#{$i} { grid-column-end: span $i; }
+  }
+
+  @include respond-to(small) {
+    .#{$grid-prefix}__col--s-#{$i} { grid-column-end: span $i; }
+  }
+
+  @include respond-to(medium) {
+    .#{$grid-prefix}__col--m-#{$i} { grid-column-end: span $i; }
+  }
+
+  @include respond-to(large) {
+    .#{$grid-prefix}__col--l-#{$i} { grid-column-end: span $i; }
+  }
+}

@@ -1,0 +1,23 @@
+$thumb-width: 220px;
+
+.skrw {
+
+  img, video {
+    display: block;
+    max-width: 100%;
+
+    &.skrw-thumb {
+      max-width: $thumb-width;
+    }
+  }
+}
+
+.skrw-thumb {
+  max-width: $thumb-width;
+
+  &--placeholder {
+    background: grey;
+    width: $thumb-width;
+    height: 180px;
+  }
+}

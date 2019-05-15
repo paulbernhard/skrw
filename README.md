@@ -61,6 +61,7 @@ $ gem install skrw
 - JS functionalities (webpacker required!)
   ```bash
   $ yarn add @yaireo/tagify
+  $ yarn add autosize
   ```
   copy the `app/javascript/controllers/skrw` directory to your `app/javascript/controllers` directory
 - Devise helpers like `user_signed_in?` will be accessible / additionally there is `admin_signed_in?`
@@ -83,6 +84,53 @@ config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 - set sender of mailer in `skrw.rb` initializer:
 ```ruby
 config.mailer_sender = "somebody@hollywood.com"
+```
+
+### Skrw form
+
+#### Dynamic Nested Fields
+To use dynamic nested fields, set up an association which accepts nested attributes on the parent model and `allow_destroy: true`. Create a partial with the inputs for the association's nested fields and a hiden field allow record deletion with `form.hidden_field :_destroy, value: false`. Implement the dynamic nested fields with the `form.dynamic_fields_for` helper.
+
+```ruby
+# app/models/product.rb
+class Product < ApplicationRecord
+  has_many :variants, dependent: :destroy
+  accepts_nested_attributes_for :variants, allow_destroy: true, reject_if: :all_blank
+end
+
+# app/controllers/products_controller.rb
+# allow nested attributes with an additional :_destroy attribute
+def product_params
+  params.require(:product).permit(variants_attributes: [:id, :title, :description, :price, :_destroy])
+end
+
+#### Dynamic Textareas
+Use dynamic textareas by supplying `data-controller="skrw--textarea"` to your textarea.
+
+```ruby
+<%= skrw_form_for @something do |form| %>
+  <%= form.input :text, as: :text, input_html: { data: { controller: "skrw--textarea" } } %><% end %>
+<% end %>
+```
+
+# app/views/products/_variant_fields.html.erb
+# NOTE: so far the form object in the fields partial has to be called 'form'
+<%= form.input :title, label: "Option Name", placeholder: "English Edition", as: :string %>
+<%= form.input :description, label: "Option Specifications", placeholder: "210 x 297 mm, 4C Offset, ...", as: :text %>
+<%= form.input :price, label: "Price (€)", as: :decimal %>
+<%= form.hidden_field :_destroy, value: false %>
+
+
+# app/views/products/_form.html.erb
+<%= skrw_form_for @product do |form| %>
+  <%= form.error :base %>
+
+  <%= form.dynamic_fields_for form, :variants, partial: "products/variant_fields" %>
+
+  <%= form.buttons do %>
+    <%= form.button :submit, "Save" %>
+  <% end %>
+<% end %>
 ```
 
 ## Contributing

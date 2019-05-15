@@ -8,4 +8,13 @@
     @include type-setting(1.5);
     font-weight: normal;
   }
+
+  p {
+    margin: 0;
+    margin-bottom: $line-height;
+  }
+}
+
+.skrw-text--secondary {
+  @include type-setting(0.8);
 }

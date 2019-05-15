@@ -21,7 +21,7 @@ module Skrw
       render 'skrw/sessions/session' if session?
     end
 
-    def set_user_bar_controls(&block)
+    def user_bar_controls(&block)
       content_for(:skrw_controls) { yield }
     end
   end

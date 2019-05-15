@@ -1,0 +1,21 @@
+<%= content_tag :div, class: "#{Skrw.form_class}__nested-fields", data: { controller: "skrw--nested-form" } do %>
+  <template data-target="skrw--nested-form.template">
+    <%= form.simple_fields_for record_name, record_name.to_s.classify.constantize.new, child_index: "NEW_RECORD" do |fields| %>
+      <%= fields.nested_field do %>
+        <%= render partial, form: fields %>
+        <%= link_to delete_label, "#", data: { action: "click->skrw--nested-form#remove" } %>
+      <% end %>
+    <% end %>
+  </template>
+
+  <%= form.simple_fields_for record_name do |fields| %>
+    <%= fields.nested_field do %>
+      <%= render partial, form: fields %>
+      <%= link_to delete_label, "#", data: { action: "click->skrw--nested-form#remove" } %>
+    <% end %>
+  <% end %>
+
+  <div class="skrw-form__nested-field__controls">
+    <%= link_to add_label, "#", data: { action: "click->skrw--nested-form#add" } %>
+  </div>
+<% end %>
