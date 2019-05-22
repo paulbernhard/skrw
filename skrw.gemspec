@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.authors     = ["Paul Bernhard"]
   spec.email       = ["mail@pbernhard.com"]
   # spec.homepage    = "N/A"
-  spec.summary     = "Skrw - Simple admin engine with authentication, upload and form functionalities"
-  spec.description = "Skrw - Simple admin engine with authentication, upload and form functionalities"
+  spec.summary     = "Skrw"
+  spec.description = "Skrw"
   spec.license     = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'

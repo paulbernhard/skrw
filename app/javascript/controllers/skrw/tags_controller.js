@@ -1,12 +1,12 @@
 // controller for input / textarea with tags suggestions
-// use with <input type="text" name="tags" data-controller="skrw--form-tag-input">
+// use with <input type="text" name="tags" data-controller="skrw--tags">
 // set setting with data attributes:
 // whitelist (possible tags)
-//  => data-skrw--form-tag-input-whitelist="apple, pear, banana"
+//  => data-skrw--tags-whitelist="apple, pear, banana"
 // enforeWhitelist (allow only whitelisted tags, default: true)
-//  => data-skrw--form-tag-input-enfore-whitelist="false"
+//  => data-skrw--tags-enfore-whitelist="false"
 // url to request a whitelist with ajax
-//  => data-skrw--form-tag-input-url="/tags"
+//  => data-skrw--tags-url="/tags"
 
 import { Controller } from "stimulus"
 import Tagify from "@yaireo/tagify"
@@ -14,7 +14,7 @@ import Tagify from "@yaireo/tagify"
 export default class extends Controller {
 
   connect() {
-    console.log("connect form-tag-input controller", this.element)
+    console.log("connect tags controller", this.element)
 
     // set options
     let options = {
@@ -26,6 +26,7 @@ export default class extends Controller {
       // fetch whitelist from URL request
       this.fetchWhitelist().then((data) => {
         options.whitelist = data
+        console.log(data)
         this.init(options)
       })
     } else {
@@ -66,6 +67,6 @@ export default class extends Controller {
   }
 
   get enforceWhitelist() {
-    return this.data.get("enforceWhitelist") == "false" ? false : true
+    return this.data.get("enforceWhitelist") == "true" ? true : false
   }
 }
