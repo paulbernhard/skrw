@@ -14,7 +14,7 @@
   padding: .05em .25em;
   // border: 1px solid $font-color;
   background: $control-color;
-  @include bracket("(", ")");
+  // @include bracket("(", ")");
 
   &:hover {
     cursor: pointer;

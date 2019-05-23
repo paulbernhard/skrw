@@ -22,7 +22,7 @@ $ gem install skrw
 - install migrations `rails skrw:install:migrations` and `rails db:migrate`
 - user:
   - user `<%= user_bar %>` in `applicattion.html.erb` to include the administration bar for users
-  - you can add context sensitive controls to the `user_bar` by setting `user_bar_controls` in yours views.
+  - you can add context sensitive controls to the `user_bar` by setting `user_bar_controls` in yours views. _NOTE: set `user_bar_controls` before using `user_bar`._
   ```ruby
   # in app/views/layouts/application.html.erb
   # set primary controls for all your views

@@ -5,4 +5,48 @@
   bottom: 0;
   left: 0;
   width: 100%;
+  max-height: 80vh;
+  padding: $unit;
+  border-top: 1px solid $font-color;
+  background: $control-color;
+
+  &--min {
+    @include prefix((
+      transform: translateY(100%)
+    ));
+
+    .skrw-session__btn:before {
+      content: "(•)"
+    }
+  }
+
+  &__btn {
+    position: absolute;
+    top: -1.5 * $line-height;
+    right: .25 * $line-height;
+    height: 1 * $line-height;
+    background: $control-color;
+    cursor: pointer;
+
+    &:hover {
+      color: $link-hover-color;
+    }
+  }
+
+  &__btn:before {
+    content: "(X)";
+  }
+
+  &__user {
+    text-align: right;
+  }
+
+  &__controls {
+
+    > * {
+      @extend .skrw-control;
+
+      &:before { content: "• " }
+    }
+  }
 }
