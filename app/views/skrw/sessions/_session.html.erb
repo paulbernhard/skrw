@@ -1,12 +1,13 @@
-<div class="skrw-session<%= ' skrw-session--with-controls' if content_for?(:skrw_controls) %><%= ' skrw-session--logged-in' if user_signed_in? %>" data-controller="skrw--session" data-skrw--session-logged-in="<%= user_signed_in? ? 'true' : 'false' %>">
+<div class="skrw-session<%= ' skrw-session--with-controls skrw-grid' if content_for?(:skrw_controls) %><%= ' skrw-session--logged-in' if user_signed_in? %>" data-controller="skrw--session" data-skrw--session-logged-in="<%= user_signed_in? ? 'true' : 'false' %>">
+
   <%= render "skrw/sessions/flashes" %>
 
-  <div class="skrw-session__user">
+  <div class="skrw-session__user<%= ' skrw-grid__col--12 skrw-grid__col--s-4' if content_for?(:skrw_controls) %>">
     <%= render "skrw/sessions/user" %>
   </div>
 
   <% if content_for?(:skrw_controls) %>
-    <div class="skrw-session__controls">
+    <div class="skrw-session__controls skrw-grid__col--12 skrw-grid__col--s-8">
       <%= yield :skrw_controls %>
     </div>
   <% end %>

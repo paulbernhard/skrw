@@ -11,13 +11,8 @@
   background: $control-color;
 
   &--min {
-    @include prefix((
-      transform: translateY(100%)
-    ));
-
-    .skrw-session__btn:before {
-      content: "(•)"
-    }
+    @include prefix((transform: translateY(100%)));
+    .skrw-session__btn:before { content: "(•)" }
   }
 
   &__btn {
@@ -28,25 +23,31 @@
     background: $control-color;
     cursor: pointer;
 
-    &:hover {
-      color: $link-hover-color;
-    }
+    &:hover { color: $link-hover-color; }
   }
 
-  &__btn:before {
-    content: "(X)";
-  }
+  &__btn:before { content: "(X)"; }
 
   &__user {
-    text-align: right;
-  }
+    overflow: hidden;
+    text-overflow: ellipsis;
 
-  &__controls {
-
-    > * {
-      @extend .skrw-control;
-
-      &:before { content: "• " }
+    @include respond-to(mobile) {
+      margin-bottom: .5 * $line-height;
     }
   }
+}
+
+.skrw-flashes {
+  @extend .skrw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: $unit 100px $unit $unit;
+  @include prefix((transform: translateY(-100%)));
+
+  > *:before { content: "! "; }
+  > .success { color: green; }
+  > .error { color: $error-color; }
 }

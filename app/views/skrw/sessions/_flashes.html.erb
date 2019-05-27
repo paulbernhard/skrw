@@ -1,7 +1,7 @@
 <% if flash.any? %>
-  <div class="s-flashes">
+  <div class="skrw-flashes" data-controller="skrw--flashes">
     <% flash.each do |name, msg| %>
-      <div class="s-flash s-flash--<%= name %>">
+      <div class="skrw-flashes__flash <%= name %>">
         <%= msg %>
       </div>
     <% end %>
