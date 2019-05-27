@@ -12,5 +12,5 @@
     </div>
   <% end %>
 
-  <%= content_tag :div, class: "skrw-session__btn", data: { action: "click->skrw--session#toggle" } if user_signed_in? %>
+  <%= content_tag :div, "", class: "skrw-session__btn", data: { action: "click->skrw--session#toggle" } if user_signed_in? %>
 </div>
