@@ -36,15 +36,17 @@ export default class extends Controller {
     }
   }
 
+  // initialize tagify
   init(options) {
     this.tagify = new Tagify(this.element, options)
+    this.formatInput()
     this.tagify
-      .on("add", (event) => { this.updateInput(event) })
-      .on("remove", (event) => { this.updateInput(event) })
+      .on("add", (e) => { this.formatInput() })
+      .on("remove", (e) => { this.formatInput() })
   }
 
-  updateInput(event) {
-    console.log("update tag input", event.detail)
+  // format tagify value as comma seperated list
+  formatInput() {
     const tags = this.tagify.value
     const tagsAsString = tags.map((t) => { return t.value }).join(", ")
     this.element.value = tagsAsString
