@@ -3,6 +3,7 @@
 .skrw-form {
   @extend .skrw;
   padding: 0 $unit;
+  background: yellow;
 
   &--small { max-width: $break-small; }
   &--medium { max-width: $break-medium; }

@@ -4,7 +4,6 @@ export default class extends Controller {
 
   connect() {
     if (this.loggedIn) {
-      console.log("go add class")
       this.element.classList.add(this.minClass)
     }
   }
