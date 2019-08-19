@@ -21,21 +21,32 @@ $ gem install skrw
 - mount engine `mount Skrw::Engine, at: '/admin'`
 - install migrations `rails skrw:install:migrations` and `rails db:migrate`
 - user:
-  - user `<%= user_bar %>` in `applicattion.html.erb` to include the administration bar for users
-  - you can add context sensitive controls to the `user_bar` by setting `user_bar_controls` in yours views. _NOTE: set `user_bar_controls` before using `user_bar`._
-  ```ruby
-  # in app/views/layouts/application.html.erb
-  # set primary controls for all your views
-  <%= user_bar_controls(:primary) do %>
-    <%= link_to 'Add Post', new_post_path %>
-  <% end %>
+  - User `<%= user_bar %>` in `application.html.erb` to include the admin bar for users. To include custom controls in the admin bar for the whole site, pass a block to `user_bar`:
 
-  # in app/views/posts/index.html.erb
-  # set a secondary control for particular view
-  <%= user_bar_controls(:secondary) do %>
-    <%= link_to 'Add Post', new_post_path %>
+  ```erb
+  # app/views/layouts/application.html.erb
+  <%= user_bar do %>
+    <%= link_to "Edit Site", edit_site_path %>
+    <%= link_to "Add Post", new_post_path %>
+    # …
   <% end %>
   ```
+
+  To add page-specific controls set `content_for(:skrw-controls)` in your page.
+
+  ```erb
+  # app/views/posts/edit/html.erb
+  <% content_for(:skrw_controls) do %>
+    <%= link_to "Delete Post", post_path(@post), method: :delete %>
+  <% end %>
+
+  # content_for(:skrw_controls) is concatenated by default to existing controls
+  # In order to override previous controls set flush : true
+  <% content_for(:skrw_controls, flush : true) do %>
+    <%= link_to "Delete Post", post_path(@post), method: :delete %>
+  <% end %>
+  ```
+
   - to `Skrw::User` with another model, override or add functionalities, create `models/skrw/user.rb` like:
   ```ruby
   module Skrw
@@ -57,6 +68,9 @@ $ gem install skrw
     end
   end
   ```
+
+- user session
+
 
 - JS functionalities (webpacker required!)
   ```bash
@@ -86,6 +100,17 @@ config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 config.mailer_sender = "somebody@hollywood.com"
 ```
 
+### Flashes
+- Skrw displays flash messages dynamically for each page. To display flash messages after an ajax / json response insert a flash hash called `flash` in the json response:
+
+```
+# json response
+flash: {
+  success: "Something good happened",
+  error: "Something bad happened"
+}
+```
+
 ### Skrw form
 
 #### Dynamic Nested Fields
@@ -103,15 +128,6 @@ end
 def product_params
   params.require(:product).permit(variants_attributes: [:id, :title, :description, :price, :_destroy])
 end
-
-#### Dynamic Textareas
-Use dynamic textareas by supplying `data-controller="skrw--textarea"` to your textarea.
-
-```ruby
-<%= skrw_form_for @something do |form| %>
-  <%= form.input :text, as: :text, input_html: { data: { controller: "skrw--textarea" } } %><% end %>
-<% end %>
-```
 
 # app/views/products/_variant_fields.html.erb
 # NOTE: so far the form object in the fields partial has to be called 'form'

@@ -1,7 +1,7 @@
 module Skrw
   module UserHelper
 
-    def session?
+    def user_session?
       if user_signed_in? || params[:controller] == "skrw/sessions"
         return true
       else
@@ -17,8 +17,9 @@ module Skrw
       end
     end
 
-    def user_bar
-      render 'skrw/sessions/session' if session?
+    def user_bar(&block)
+      content_for(:skrw_controls) { yield } if block_given?
+      render 'skrw/sessions/session'
     end
 
     def user_bar_controls(&block)
