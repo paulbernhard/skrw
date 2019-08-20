@@ -2,9 +2,8 @@ module Skrw
   module ApplicationHelper
 
     def skrw_date(date, time: false)
-      date_format = "%d.%m.%Y"
-      time_format = "%H:%M:%S"
-      format = time ? time_format : date_format
+      format = "%d.%m.%Y"
+      format += " - %H:%M:%S" if time
       date.strftime format
     end
 

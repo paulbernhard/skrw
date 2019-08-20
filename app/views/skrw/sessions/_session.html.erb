@@ -1,12 +1,13 @@
-<div class="skrw skrw-session" data-controller="skrw-session" data-action="ajax:success->flash">
+<div class="skrw skrw-session" data-controller="skrw-session" data-action="ajax:success->skrw-session#flash">
 
-  <div class="skrw-flashes" data-target="skrw-session.flash">
-    <%= render "skrw/sessions/flashes" %>
+  <div class="skrw-flash" data-target="skrw-session.flash">
+    <%= render "skrw/sessions/flash" %>
   </div>
 
   <div class="skrw-session__inner">
     <div>
-      <strong><%= current_user.email %></strong> (<%= link_to "logout", skrw.destroy_user_session_path, method: :delete %>)
+      <strong><%= current_user.email %></strong> (<%= link_to "logout", skrw.destroy_user_session_path, method: :delete %>)<br>
+      ----
     </div>
 
     <%= content_tag(:div, content_for(:skrw_controls), class: "skrw-session__controls") if content_for?(:skrw_controls) %>

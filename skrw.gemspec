@@ -26,10 +26,9 @@ Gem::Specification.new do |spec|
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
   spec.add_dependency 'rails', '~> 6.0.0.rc1'
-  spec.add_dependency 'sass-rails', '~> 5.0', '>= 5.0.7' # scss compilation
   spec.add_dependency 'jbuilder', '~> 2.8' # jbuilder for JSON responses
 
-  spec.add_dependency 'devise', '~> 4.5' # authentication of user
+  spec.add_dependency 'devise', '~> 4.6', '>= 4.6.2' # authentication
   spec.add_dependency 'simple_form', '~> 4.1' # forms
 
   spec.add_development_dependency 'pg'
