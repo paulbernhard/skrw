@@ -14,4 +14,5 @@ Skrw::Engine.routes.draw do
   resources :users, only: [:index, :edit, :update, :destroy]
 
   root to: 'users#index'
+  # TODO add user index, adding, editing functionalities
 end
