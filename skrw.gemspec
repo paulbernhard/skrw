@@ -1,6 +1,6 @@
 $:.push File.expand_path("lib", __dir__)
 
-# Maintain your gem's version:
+# Maintain your gem"s version:
 require "skrw/version"
 
 # Describe your gem and declare its dependencies:
@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.description = "Skrw"
   spec.license     = "MIT"
 
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
+  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the "allowed_push_host"
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
     spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
@@ -25,11 +25,11 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  spec.add_dependency 'rails', '~> 6.0.0.rc1'
-  spec.add_dependency 'jbuilder', '~> 2.8' # jbuilder for JSON responses
+  spec.add_dependency "rails", "~> 6.0.0"
+  spec.add_dependency "jbuilder", "~> 2.8" # jbuilder for JSON responses
 
-  spec.add_dependency 'devise', '~> 4.6', '>= 4.6.2' # authentication
-  spec.add_dependency 'simple_form', '~> 4.1' # forms
+  spec.add_dependency "devise", "~> 4.7" # authentication
+  spec.add_dependency "simple_form", "~> 4.1" # forms
 
-  spec.add_development_dependency 'pg'
+  spec.add_development_dependency "pg"
 end
