@@ -8,7 +8,4 @@ Skrw.setup do |config|
 
   # path after sign out
   # config.after_sign_out_path = "/"
-
-  # class for simple_forms
-  # config.simple_form_class = "skrw-form"
 end
