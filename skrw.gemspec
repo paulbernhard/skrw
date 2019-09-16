@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails", "~> 6.0.0"
   spec.add_dependency "jbuilder", "~> 2.8" # jbuilder for JSON responses
 
-  spec.add_dependency "devise", "~> 4.7" # authentication
+  spec.add_dependency "devise", "~> 4.7.1" # authentication
 
   spec.add_development_dependency "pg"
 end
