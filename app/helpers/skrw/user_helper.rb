@@ -1,7 +1,7 @@
 module Skrw
   module UserHelper
 
-    def user_session?
+    def skrw_session?
       if user_signed_in? || params[:controller] == "skrw/sessions"
         return true
       else
