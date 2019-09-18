@@ -7,11 +7,14 @@
   <div class="skrw-session__inner">
     <% if user_signed_in? %>
       <div>
-        <strong><%= current_user.email %></strong> (<%= link_to "logout", skrw.destroy_user_session_path, method: :delete %>)<br>
-        ----
+        <strong><%= current_user.email %></strong> (<%= link_to "logout", skrw.destroy_user_session_path, method: :delete %>)
       </div>
 
-      <%= content_tag(:div, content_for(:skrw_controls), class: "skrw-session__controls") if content_for?(:skrw_controls) %>
+      <% if content_for?(:skrw_controls) %>
+        <hr>
+        <%= content_tag(:div, content_for(:skrw_controls), class: "skrw-session__controls") %>
+      <% end %>
+
     <% else %>
       <div>Currently no user logged in.</div>
     <% end %>

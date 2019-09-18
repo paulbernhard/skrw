@@ -7,10 +7,10 @@ module Skrw
       date.strftime format
     end
 
-    def skrw_timestamps(record, show_created: false)
+    def skrw_timestamp(record, show_created: false)
       dates = ["updated at: #{skrw_date(record.updated_at, time: true)}"]
       dates = ["created at: #{skrw_date(record.created_at, time: true)}"] + dates if show_created
-      dates.join(", ")
+      dates.join("<br>").html_safe
     end
   end
 end
