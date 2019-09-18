@@ -1,6 +1,6 @@
 <div class="skrw-error">
   <strong><%= pluralize(object.errors.size, "error") %> occured:</strong>
-  <% object.errors.full_messages.each do |error| %>
-    <div>*<%= error %>*</div>
-  <% end %>
+
+  <% errors = object.errors.full_messages.map { |msg| "* #{msg}" } %>
+  <%= errors.join(", ") %>
 </div>

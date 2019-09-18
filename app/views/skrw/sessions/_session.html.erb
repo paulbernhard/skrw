@@ -5,12 +5,16 @@
   </div>
 
   <div class="skrw-session__inner">
-    <div>
-      <strong><%= current_user.email %></strong> (<%= link_to "logout", skrw.destroy_user_session_path, method: :delete %>)<br>
-      ----
-    </div>
+    <% if user_signed_in? %>
+      <div>
+        <strong><%= current_user.email %></strong> (<%= link_to "logout", skrw.destroy_user_session_path, method: :delete %>)<br>
+        ----
+      </div>
 
-    <%= content_tag(:div, content_for(:skrw_controls), class: "skrw-session__controls") if content_for?(:skrw_controls) %>
+      <%= content_tag(:div, content_for(:skrw_controls), class: "skrw-session__controls") if content_for?(:skrw_controls) %>
+    <% else %>
+      <div>Currently no user logged in.</div>
+    <% end %>
   </div>
 
   <div class="skrw-session__handle" data-action="click->skrw-session#toggle"></div>

@@ -1,4 +1,3 @@
-# TODO Add functionality to register / invite new users as admin
 require_dependency "skrw/application_controller"
 
 module Skrw

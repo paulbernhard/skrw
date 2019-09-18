@@ -17,12 +17,14 @@ module Skrw
       end
     end
 
-    def user_bar(&block)
-      content_for(:skrw_controls) { yield } if block_given?
-      render 'skrw/sessions/session'
+    def skrw_user_bar(&block)
+      if skrw_session?
+        content_for(:skrw_controls) { yield } if block_given?
+        render 'skrw/sessions/session'
+      end
     end
 
-    def user_bar_controls(&block)
+    def skrw_user_bar_controls(&block)
       content_for(:skrw_controls) { yield }
     end
   end

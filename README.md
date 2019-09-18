@@ -18,6 +18,48 @@ Or install it yourself as:
 $ gem install skrw
 ```
 
+For all frontend styles and js functionalities you will need to include the npm package `@swrs/skrw-js` and load it in your application.
+
+```bash
+$ yarn add @swrs/skrw-js
+```
+
+```erb
+# app/views/layouts/application.html.erb
+<%= javascript_pack_tag "admin" if skrw_session? %>
+<%= stylesheet_pack_tag "admin" if skrw_session? %>
+```
+
+```js
+// app/javascript/packs/admin.js
+import { Skrw } from "@swrs/skrw-js"
+
+const skrw = Skrw.new()
+skrw.start()
+import "@swrs/skrw-js/src/styles/styles.scss"
+```
+
+The `@swrs/pshr-js` is **not precompiled**, so you will have to compile it. With webpacker this can be done easily be excluding all `@swrs/*` packages from babels's default list of ignored packages.
+
+```js
+// config/webpack/environment.js
+// do not exclude @swrs/* packages with Babel to compile them
+const babelLoader = environment.loaders.get('babel')
+babelLoader.exclude = /node_modules\/(?!(@swrs)\/).*/
+```
+
+_NOTE: To develop the @swrs/pshr-js package further, you can link the local package using `yarn link` and add the following setup to webpacker._
+
+```js
+// config/webpack.development.js
+
+// disable resolving of symlinked (yarn link) paths
+environment.config.set("resolve.symlinks", false)
+
+// remove all @swrs/* packages from webpacker dev server ignrored paths
+environment.config.set("devServer.watchOptions.ignored", /node_modules\/(?!@swrs).*/)
+```
+
 - mount engine `mount Skrw::Engine, at: '/admin'`
 - install migrations `rails skrw:install:migrations` and `rails db:migrate`
 - user:
@@ -72,12 +114,6 @@ $ gem install skrw
 - user session
 
 
-- JS functionalities (webpacker required!)
-  ```bash
-  $ yarn add @yaireo/tagify
-  $ yarn add autosize
-  ```
-  copy the `app/javascript/controllers/skrw` directory to your `app/javascript/controllers` directory
 - Devise helpers like `user_signed_in?` will be accessible / additionally there is `admin_signed_in?`
 - create a user in console `Skrw::User.create!(email: 'mail@mail.com', passworD: 'password', password_confirmation: 'password')` (temporary until registration is finished)
 - testing:
@@ -130,7 +166,9 @@ def product_params
 end
 
 # app/views/products/_variant_fields.html.erb
-# NOTE: so far the form object in the fields partial has to be called 'form'
+
+# so far the form object in the fields partial has to be called 'form'
+
 <%= form.input :title, label: "Option Name", placeholder: "English Edition", as: :string %>
 <%= form.input :description, label: "Option Specifications", placeholder: "210 x 297 mm, 4C Offset, ...", as: :text %>
 <%= form.input :price, label: "Price (€)", as: :decimal %>
@@ -149,8 +187,10 @@ end
 <% end %>
 ```
 
-## Contributing
-Contribution directions go here.
+## Etc
+• TODO: add functionality to add, edit, remove users
+• TODO: add password recovery dor users
+• TODO: add custom skrw form helper
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
