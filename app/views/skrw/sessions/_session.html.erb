@@ -1,8 +1,4 @@
-<div class="skrw skrw-session" data-controller="skrw-session" data-action="ajax:success->skrw-session#flash">
-
-  <div class="skrw-flash" data-target="skrw-session.flash">
-    <%= render "skrw/sessions/flash" %>
-  </div>
+<div id="skrw skrw-session" class="skrw skrw-session" data-controller="skrw-session" data-action="ajax:success->skrw-session#flash" data-turbolinks-permanent>
 
   <div class="skrw-session__inner">
     <% if user_signed_in? %>
@@ -21,4 +17,12 @@
   </div>
 
   <div class="skrw-session__handle" data-action="click->skrw-session#toggle"></div>
+</div>
+
+<div class="skrw skrw-flash" data-controller="skrw-flash">
+  <% if flash.any? %>
+    <% flash.each do |name, message| %>
+      <div class="<%= name %>"><%= message %></div>
+    <% end %>
+  <% end %>
 </div>
