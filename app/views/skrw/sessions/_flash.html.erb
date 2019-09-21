@@ -1,0 +1,7 @@
+<div class="skrw skrw-flash" data-controller="skrw-flash">
+  <% if flash.any? %>
+    <% flash.each do |name, message| %>
+      <div class="<%= name %>"><%= message %></div>
+    <% end %>
+  <% end %>
+</div>

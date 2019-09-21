@@ -8,7 +8,3 @@ module Skrw
     end
   end
 end
-
-# form_with model: @object do |f|
-# …
-# end

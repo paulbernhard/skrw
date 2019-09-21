@@ -46,17 +46,36 @@ class Skrw::FormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
-  # render method with optional error messages
-  # def render_with_errors(attr, &block)
-  #   errors = @object.errors[attr]
-  #   if errors.any?
-  #     @template.content_tag(:div, class: "skrw-field--erroneous") do
-  #       output = yield
-  #       output += errors.map { |e| @template.content_tag(:div, e) }.join("").html_safe
-  #       output
-  #     end
-  #   else
-  #     yield
-  #   end
-  # end
+  # dynamic nested fields
+  def dynamic_fields_for(association, &block)
+    # create template fields for new association and pass
+    # ff as block argument to the yield in a partial
+    new_association = association.to_s.classify.constantize.new
+
+    template = self.fields_for(association, new_association, child_index: "NEW_RECORD") do |ff|
+      @template.render(layout: "skrw/forms/dynamic_nested_fields",
+        locals: { ff: ff, association: association }) do
+          @template.capture(ff, &block)
+      end
+    end
+
+    # create fields for association and pass ff as
+    # block argument to the yield in a partial
+    fields = self.fields_for(association) do |ff|
+      @template.render(layout: "skrw/forms/dynamic_nested_fields",
+        locals: { ff: ff, association: association }) do
+          @template.capture(ff, &block)
+      end
+    end
+
+    # concat template and fields and return in a content_tag
+    @template.content_tag(:div,
+      class: "skrw-nested-fields skrw-nested-fields--dynamic",
+      data: { controller: "skrw-nested-fields" }) do
+        @template.concat template
+        @template.concat fields
+        @template.concat @template.link_to("Add", "#",
+          data: { action: "click->skrw-nested-fields#add" }, class: "skrw-control")
+    end
+  end
 end

@@ -126,6 +126,21 @@ environment.config.set("devServer.watchOptions.ignored", /node_modules\/(?!@swrs
 
 ## Usage / Configuration
 
+### User Bar / Dashboard
+Include a dashboard for currently logged a user in your layout. Normally the dashboard would be placed in application.html.erb and would be accessible to the user from any page. You can set controls (or any content) that will appear in the dashboard site-wide or per view. Use like…
+
+```erb
+# application.html.erb
+<%= skrw_user_bar do %>
+  <%= link_to "Edit Site", edit_site_path %>
+  <%= link_to "Posts Index", posts_path %>
+  <%= link_to "New Post", new_post_path %>
+  # etc.
+<% end %>
+```
+
+By default the dashboard will only be displayed for logged in users. It can be restricted to admin users with `<%= skrw_user_bar(:admin) do %>…<% end %>`.
+
 ### Authentication
 - you'll need to set up the default URL options for the Devise mailer in each environment, e.g. in `config/environments/development.rb`:
 ```ruby
@@ -137,55 +152,122 @@ config.mailer_sender = "somebody@hollywood.com"
 ```
 
 ### Flashes
-- Skrw displays flash messages dynamically for each page. To display flash messages after an ajax / json response insert a flash hash called `flash` in the json response:
+- Skrw displays flash messages using the `<%= user_bar %>` view helper. Flash messages are displayed dynamically for each ajax response which includes a `flash` object. The following request of a remote `form_with` to `PostsController` would get a json response with a `flash` object. The messages inside `flash` will be displayed dynamically in the user bar.
 
+```erb
+<%= form_with model: @post, local: false do |f| %>
+  <%= f.label :title, Title %>
+  <%= f.text_fields :title %>
+  <%# … %>
+<% end %>
 ```
-# json response
+
+… and a controller response including a flash object as json response…
+
+```ruby
+class PostsController < AdminController
+
+  def create
+    @post = Post.new(post_params)
+    if @post.save
+      flash[:success] = "Created new post"
+      render json: { flash.flash.to_hash }
+    else
+      render "new"
+    end
+  end
+end
+```
+
+```json
 flash: {
-  success: "Something good happened",
-  error: "Something bad happened"
+  success: "Something good happened"
 }
 ```
 
-### Skrw form
+### Skrw Form Builder
+
+To use skrw's form functionalities build the forms in your templates using the `Skrw::FormBuilder`. All inherent form helpers stay available, some others are added…
+
+```erb
+<%= form_with model: @post, builder: Skrw::FormBuilder do |f| %>
+  <%= f.base_errors %>
+
+  <%= f.field :title, "Title" do %>
+    <%= f.text_field :title %>
+  <% end %>
+
+  <%= f.field :body, "Text" do %>
+    <%= f.text_area :body, data: { controller: "skrw-markdown" } %>
+  <% end %>
+
+  <%= f.submit "Save" %>
+<% end %>
+```
+
+#### Errors
+Use the `f.base_errors` helper to render all :base errors of a record. All errors related to a record's attribute can be rendered at the specific field using the `f.field(attribute, label, &block)` helper.
+
+#### Field helper
+Using the `f.field(attribute, label, &block)` helper the form builder will generate a wrapper with a label and automagical error display for the given `attribute`. The following field helpers…
+
+```erb
+<%= f.field :title, "Title" do %>
+  <%= f.text_field :title %>
+<% end %>
+```
+
+… renders…
+
+```html
+<div class="skrw-field">
+  <label for="product_title">Title</label>
+  <input type="text" value="Title" name="post[title]" id="post_title">
+</div>
+```
+
+… after `f.object.errors.add(:title, "Something wrong with title…")` the field helper…
+
+```erb
+<%= f.field :title, "Title" do %>
+  <%= f.text_field :title %>
+<% end %>
+```
+
+… renders…
+
+```html
+<div class="skrw-field skrw-field--erroneous">
+  <label for="product_title">Title</label>
+  <input type="text" value="Title" name="post[title]" id="post_title">
+  <div class="skrw-errors">
+    <div>Something wrong with title…</div>
+  </div>
+</div>
+```
 
 #### Dynamic Nested Fields
-To use dynamic nested fields, set up an association which accepts nested attributes on the parent model and `allow_destroy: true`. Create a partial with the inputs for the association's nested fields and a hiden field allow record deletion with `form.hidden_field :_destroy, value: false`. Implement the dynamic nested fields with the `form.dynamic_fields_for` helper.
+Create nested fields with dynamic adding / removing of nested fields using the `f.dynamic_nested_fields(association, &block)` helper.
 
 ```ruby
-# app/models/product.rb
-class Product < ApplicationRecord
-  has_many :variants, dependent: :destroy
-  accepts_nested_attributes_for :variants, allow_destroy: true, reject_if: :all_blank
+class Post < ApplicationRecord
+  has_many :comments, dependent: :destroy
+  accepts_nested_attributes_for :comments, allow_destroy: true, reject_if: :all_blank
 end
+```
 
-# app/controllers/products_controller.rb
-# allow nested attributes with an additional :_destroy attribute
-def product_params
-  params.require(:product).permit(variants_attributes: [:id, :title, :description, :price, :_destroy])
-end
+```erb
+<%= form_with model: @post, builder: Skrw::FormBuilder do |f| %>
+  # @post fields…
 
-# app/views/products/_variant_fields.html.erb
-
-# so far the form object in the fields partial has to be called 'form'
-
-<%= form.input :title, label: "Option Name", placeholder: "English Edition", as: :string %>
-<%= form.input :description, label: "Option Specifications", placeholder: "210 x 297 mm, 4C Offset, ...", as: :text %>
-<%= form.input :price, label: "Price (€)", as: :decimal %>
-<%= form.hidden_field :_destroy, value: false %>
-
-
-# app/views/products/_form.html.erb
-<%= skrw_form_for @product do |form| %>
-  <%= form.error :base %>
-
-  <%= form.dynamic_fields_for form, :variants, partial: "products/variant_fields" %>
-
-  <%= form.buttons do %>
-    <%= form.button :submit, "Save" %>
+  <%= f.dynamic_fields_for :comments do |ff| %>
+    <%= ff.text_field :body %>
+    <%= ff.hidden_field :_destroy %>
   <% end %>
 <% end %>
 ```
+
+*Note: Don't forget to add `allow_destroy: true` and <%= f.hidden_field :_destroy %> to allow removal of nested records.*
 
 ## Etc
 • TODO: add functionality to add, edit, remove users
