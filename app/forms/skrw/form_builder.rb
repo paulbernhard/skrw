@@ -54,7 +54,7 @@ class Skrw::FormBuilder < ActionView::Helpers::FormBuilder
 
     template = self.fields_for(association, new_association, child_index: "NEW_RECORD") do |ff|
       @template.render(layout: "skrw/forms/dynamic_nested_fields",
-        locals: { ff: ff, association: association }) do
+        locals: { ff: ff, association: association, template: true }) do
           @template.capture(ff, &block)
       end
     end

@@ -1,4 +1,6 @@
-<% if ff.object.new_record? %>
+<% template = false if local_assigns[:template].nil? %>
+
+<% if template %>
 
   <%= content_tag(:template, data: { target:"skrw-nested-fields.template" }) do %>
     <%= content_tag(:div, data: { target: "skrw-nested-fields.fields", "new-record": ff.object.new_record? }) do %>
