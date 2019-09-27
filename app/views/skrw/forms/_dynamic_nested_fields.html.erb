@@ -3,17 +3,25 @@
 <% if template %>
 
   <%= content_tag(:template, data: { target:"skrw-nested-fields.template" }) do %>
-    <%= content_tag(:div, data: { target: "skrw-nested-fields.fields", "new-record": ff.object.new_record? }) do %>
+    <%= content_tag(:div,
+      data: { target: "skrw-nested-fields.fields", "new-record": ff.object.new_record? }) do %>
+
       <%= yield %>
-      <%= link_to "Remove", "#", data: { action: "skrw-nested-fields#remove" } %>
+
+      <%= link_to "Remove", "#", class: "skrw-control",
+        data: { action: "skrw-nested-fields#remove" } %>
     <% end %>
   <% end %>
 
 <% else %>
 
-  <%= content_tag(:div, data: { target: "skrw-nested-fields.fields", "new-record": ff.object.new_record? }) do %>
+  <%= content_tag(:div,
+    data: { target: "skrw-nested-fields.fields", "new-record": ff.object.new_record? }) do %>
+
     <%= yield %>
-    <%= link_to "Remove", "#", data: { action: "skrw-nested-fields#remove" } %>
+
+    <%= link_to "Remove", "#", class: "skrw-control",
+      data: { action: "skrw-nested-fields#remove" } %>
   <% end %>
 
 <% end %>
